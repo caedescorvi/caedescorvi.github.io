@@ -1,0 +1,2341 @@
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Caedes Corvi - ﹒one ; kitchen ( kasimir, pasi &amp; behiye )</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+
+    <style>
+        @font-face {
+            src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-300.woff);
+            font-family: Whitney;
+            font-weight: 300;
+        }
+
+        @font-face {
+            src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-400.woff);
+            font-family: Whitney;
+            font-weight: 400;
+        }
+
+        @font-face {
+            src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-500.woff);
+            font-family: Whitney;
+            font-weight: 500;
+        }
+
+        @font-face {
+            src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-600.woff);
+            font-family: Whitney;
+            font-weight: 600;
+        }
+
+        @font-face {
+            src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-700.woff);
+            font-family: Whitney;
+            font-weight: 700;
+        }
+
+        html, body {
+            margin: 0;
+            padding: 0;
+            background-color: #36393e;
+            color: #dcddde;
+            font-family: Whitney, "Helvetica Neue", Helvetica, Arial, sans-serif;
+            font-size: 17px;
+            font-weight: 400;
+        }
+
+        a {
+            color: #00aff4;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        img {
+            object-fit: contain;
+            image-rendering: high-quality;
+            image-rendering: -webkit-optimize-contrast;
+        }
+
+        .preamble {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            max-width: 100%;
+            padding: 1rem;
+        }
+
+        .preamble__guild-icon-container {
+            grid-column: 1;
+        }
+
+        .preamble__guild-icon {
+            max-width: 88px;
+            max-height: 88px;
+        }
+
+        .preamble__entries-container {
+            grid-column: 2;
+            margin-left: 1rem;
+        }
+
+        .preamble__entry {
+            margin-bottom: 0.15rem;
+            color: #ffffff;
+            font-size: 1.4rem;
+        }
+
+        .preamble__entry--small {
+            font-size: 1rem;
+        }
+
+        .chatlog {
+            padding: 1rem 0;
+            width: 100%;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .chatlog__message-group {
+            margin-bottom: 1rem;
+        }
+
+        .chatlog__message-container {
+            background-color: transparent;
+            transition: background-color 1s ease;
+        }
+
+        .chatlog__message-container--highlighted {
+            background-color: rgba(114, 137, 218, 0.2);
+        }
+
+        .chatlog__message-container--pinned {
+            background-color: rgba(249, 168, 37, 0.05);
+        }
+
+        .chatlog__message {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            padding: 0.15rem 0;
+            direction: ltr;
+            unicode-bidi: bidi-override;
+        }
+
+        .chatlog__message:hover {
+            background-color: #32353b;
+        }
+
+        .chatlog__message:hover .chatlog__short-timestamp {
+            display: block;
+        }
+
+        .chatlog__message-aside {
+            grid-column: 1;
+            width: 72px;
+            padding: 0.15rem 0.15rem 0 0.15rem;
+            text-align: center;
+        }
+
+        .chatlog__reference-symbol {
+            height: 10px;
+            margin: 6px 4px 4px 36px;
+            border-left: 2px solid #4f545c;
+            border-top: 2px solid #4f545c;
+            border-radius: 8px 0 0 0;
+        }
+
+        .chatlog__avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+        }
+
+        .chatlog__short-timestamp {
+            display: none;
+            color: #a3a6aa;
+            font-size: 0.75rem;
+            font-weight: 500;
+            direction: ltr;
+            unicode-bidi: bidi-override;
+        }
+
+        .chatlog__message-primary {
+            grid-column: 2;
+            min-width: 0;
+        }
+
+        .chatlog__reference {
+            display: flex;
+            margin-bottom: 0.15rem;
+            align-items: center;
+            color: #b5b6b8;
+            font-size: 0.875rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .chatlog__reference-avatar {
+            width: 16px;
+            height: 16px;
+            margin-right: 0.25rem;
+            border-radius: 50%;
+        }
+
+        .chatlog__reference-author {
+            margin-right: 0.3rem;
+            font-weight: 600;
+        }
+
+        .chatlog__reference-content {
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .chatlog__reference-link {
+            cursor: pointer;
+        }
+
+        .chatlog__reference-link * {
+            display: inline;
+            pointer-events: none;
+        }
+
+        .chatlog__reference-link .hljs {
+            display: inline;
+        }
+
+        .chatlog__reference-link:hover {
+            color: #ffffff;
+        }
+
+        .chatlog__reference-link:hover *:not(.chatlog__markdown-spoiler) {
+            color: inherit;
+        }
+
+        .chatlog__reference-edited-timestamp {
+            margin-left: 0.25rem;
+            color: #a3a6aa;
+            font-size: 0.75rem;
+            font-weight: 500;
+            direction: ltr;
+            unicode-bidi: bidi-override;
+        }
+
+        .chatlog__header {
+            margin-bottom: 0.1rem;
+        }
+
+        .chatlog__author {
+            font-weight: 500;
+            color: #ffffff;
+        }
+
+        .chatlog__bot-label {
+            position: relative;
+            top: -0.1rem;
+            margin-left: 0.3rem;
+            padding: 0.05rem 0.3rem;
+            border-radius: 3px;
+            background-color: #5865F2;
+            color: #ffffff;
+            font-size: 0.625rem;
+            font-weight: 500;
+            line-height: 1.3;
+        }
+
+        .chatlog__timestamp {
+            margin-left: 0.3rem;
+            color: #a3a6aa;
+            font-size: 0.75rem;
+            font-weight: 500;
+            direction: ltr;
+            unicode-bidi: bidi-override;
+        }
+
+        .chatlog__content {
+            padding-right: 1rem;
+            font-size: 0.95rem;
+            word-wrap: break-word;
+        }
+
+        .chatlog__edited-timestamp {
+            margin-left: 0.15rem;
+            color: #a3a6aa;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .chatlog__attachment {
+            position: relative;
+            width: fit-content;
+            margin-top: 0.3rem;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .chatlog__attachment--hidden {
+            cursor: pointer;
+            box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.1);
+        }
+
+        .chatlog__attachment--hidden * {
+            pointer-events: none;
+        }
+
+        .chatlog__attachment-spoiler-caption {
+            display: none;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            z-index: 999;
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            transform: translate(-50%, -50%);
+            background-color: rgba(0, 0, 0, 0.9);
+            color: #dcddde;
+            font-size: 0.9rem;
+            font-weight: 600;
+            letter-spacing: 0.05rem;
+        }
+
+        .chatlog__attachment--hidden .chatlog__attachment-spoiler-caption {
+            display: block;
+        }
+
+        .chatlog__attachment--hidden:hover .chatlog__attachment-spoiler-caption {
+            color: #fff;
+        }
+
+        .chatlog__attachment-media {
+            max-width: 45vw;
+            max-height: 500px;
+            vertical-align: top;
+            border-radius: 3px;
+        }
+
+        .chatlog__attachment--hidden .chatlog__attachment-media {
+            filter: blur(44px);
+        }
+
+        .chatlog__attachment-generic {
+            max-width: 520px;
+            width: 100%;
+            height: 40px;
+            padding: 10px;
+            border: 1px solid #292b2f;
+            border-radius: 3px;
+            background-color: #2f3136;
+            overflow: hidden;
+        }
+
+        .chatlog__attachment--hidden .chatlog__attachment-generic {
+            filter: blur(44px);
+        }
+
+        .chatlog__attachment-generic-icon {
+            float: left;
+            width: 30px;
+            height: 100%;
+            margin-right: 10px;
+        }
+
+        .chatlog__attachment-generic-size {
+            color: #72767d;
+            font-size: 12px;
+        }
+
+        .chatlog__attachment-generic-name {
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+
+        .chatlog__embed {
+            display: flex;
+            margin-top: 0.3rem;
+            max-width: 520px;
+        }
+
+        .chatlog__embed-color-pill {
+            flex-shrink: 0;
+            width: 0.25rem;
+            border-top-left-radius: 3px;
+            border-bottom-left-radius: 3px;
+        }
+
+        .chatlog__embed-color-pill--default {
+            background-color: #202225;
+        }
+
+        .chatlog__embed-content-container {
+            display: flex;
+            flex-direction: column;
+            padding: 0.5rem 0.6rem;
+            border: 1px solid rgba(46, 48, 54, 0.6);
+            border-top-right-radius: 3px;
+            border-bottom-right-radius: 3px;
+            background-color: rgba(46, 48, 54, 0.3);
+        }
+
+        .chatlog__embed-content {
+            display: flex;
+            width: 100%;
+        }
+
+        .chatlog__embed-text {
+            flex: 1;
+        }
+
+        .chatlog__embed-author-container {
+            display: flex;
+            margin-bottom: 0.5rem;
+            align-items: center;
+        }
+
+        .chatlog__embed-author-icon {
+            width: 20px;
+            height: 20px;
+            margin-right: 0.5rem;
+            border-radius: 50%;
+        }
+
+        .chatlog__embed-author {
+            color: #ffffff;
+            font-size: 0.875rem;
+            font-weight: 600;
+            direction: ltr;
+            unicode-bidi: bidi-override;
+        }
+
+        .chatlog__embed-author-link {
+            color: #ffffff;
+        }
+
+        .chatlog__embed-title {
+            margin-bottom: 0.5rem;
+            color: #ffffff;
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+
+        .chatlog__embed-description {
+            color: #dcddde;
+            font-weight: 500;
+            font-size: 0.85rem;
+        }
+
+        .chatlog__embed-fields {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0 0.5rem;
+        }
+
+        .chatlog__embed-field {
+            flex: 0;
+            min-width: 100%;
+            max-width: 506px;
+            padding-top: 0.6rem;
+            font-size: 0.875rem;
+        }
+
+        .chatlog__embed-field--inline {
+            flex: 1;
+            flex-basis: auto;
+            min-width: 50px;
+        }
+
+        .chatlog__embed-field-name {
+            margin-bottom: 0.2rem;
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        .chatlog__embed-field-value {
+            color: #dcddde;
+            font-weight: 500;
+        }
+
+        .chatlog__embed-thumbnail {
+            flex: 0;
+            max-width: 80px;
+            max-height: 80px;
+            margin-left: 1.2rem;
+            border-radius: 3px;
+        }
+
+        .chatlog__embed-image-container {
+            margin-top: 0.6rem;
+        }
+
+        .chatlog__embed-image {
+            max-width: 500px;
+            max-height: 400px;
+            border-radius: 3px;
+        }
+
+        .chatlog__embed-footer {
+            margin-top: 0.6rem;
+            color: #dcddde;
+        }
+
+        .chatlog__embed-footer-icon {
+            width: 20px;
+            height: 20px;
+            margin-right: 0.2rem;
+            border-radius: 50%;
+            vertical-align: middle;
+        }
+
+        .chatlog__embed-footer-text {
+            vertical-align: middle;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .chatlog__embed-plainimage {
+            max-width: 45vw;
+            max-height: 500px;
+            vertical-align: top;
+            border-radius: 3px;
+        }
+
+        .chatlog__embed-spotify {
+            border: 0;
+        }
+
+        .chatlog__embed-youtube-container {
+            margin-top: 0.6rem;
+        }
+
+        .chatlog__embed-youtube {
+            border: 0;
+            border-radius: 3px;
+        }
+
+        .chatlog__sticker {
+            width: 180px;
+            height: 180px;
+        }
+
+        .chatlog__sticker--media {
+            max-width: 100%;
+            max-height: 100%;
+        }
+
+        .chatlog__reactions {
+            display: flex;
+        }
+
+        .chatlog__reaction {
+            display: flex;
+            margin: 0.35rem 0.1rem 0.1rem 0;
+            padding: 0.125rem 0.375rem;
+            border: 1px solid transparent;
+            border-radius: 8px;
+            background-color: #2f3136;
+            align-items: center;
+        }
+
+        .chatlog__reaction:hover {
+            border: 1px solid hsla(0,0%,100%,.2);
+            background-color: transparent;
+        }
+
+        .chatlog__reaction-count {
+            min-width: 9px;
+            margin-left: 0.35rem;
+            color: #b9bbbe;
+            font-size: 0.875rem;
+        }
+
+        .chatlog__reaction:hover .chatlog__reaction-count {
+            color: #dcddde;
+        }
+
+        .chatlog__markdown {
+            max-width: 100%;
+            line-height: 1.3;
+            overflow-wrap: break-word;
+        }
+
+        .chatlog__markdown-preserve {
+            white-space: pre-wrap;
+        }
+
+        .chatlog__markdown-spoiler {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+        }
+
+        .chatlog__markdown-spoiler--hidden {
+            cursor: pointer;
+            background-color: #202225;
+            color: rgba(0, 0, 0, 0);
+        }
+
+        .chatlog__markdown-spoiler--hidden:hover {
+            background-color: rgba(32, 34, 37, 0.8);
+        }
+
+        .chatlog__markdown-spoiler--hidden::selection {
+            color: rgba(0, 0, 0, 0);
+        }
+
+        .chatlog__markdown-quote {
+            display: flex;
+            margin: 0.05rem 0;
+        }
+
+        .chatlog__markdown-quote-border {
+            margin-right: 0.5rem;
+            border: 2px solid #4f545c;
+            border-radius: 3px;
+        }
+
+        .chatlog__markdown-pre {
+            background-color: #2f3136;
+            font-family: "Consolas", "Courier New", Courier, monospace;
+        }
+
+        .chatlog__markdown-pre--multiline {
+            margin-top: 0.25rem;
+            padding: 0.5rem;
+            border: 2px solid #282b30;
+            border-radius: 5px;
+            color: #b9bbbe;
+        }
+
+        .chatlog__markdown-pre--multiline.hljs {
+            background-color: inherit;
+            color: inherit;
+        }
+
+        .chatlog__markdown-pre--inline {
+            padding: 2px;
+            border-radius: 3px;
+            font-size: 0.85rem;
+        }
+
+        .chatlog__markdown-mention {
+            border-radius: 3px;
+            padding: 0 2px;
+            background-color: rgba(88, 101, 242, .3);
+            color: #dee0fc;
+            font-weight: 500;
+        }
+
+        .chatlog__markdown-mention:hover {
+            background-color: #5865f2;
+            color: #ffffff
+        }
+
+        .chatlog__markdown-timestamp {
+            border-radius: 3px;
+            padding: 0 2px;
+            color: #a3a6aa;
+        }
+
+        .chatlog__emoji {
+            width: 1.325rem;
+            height: 1.325rem;
+            margin: 0 0.06rem;
+            vertical-align: -0.4rem;
+        }
+
+        .chatlog__emoji--small {
+            width: 1rem;
+            height: 1rem;
+        }
+
+        .chatlog__emoji--large {
+            width: 2.8rem;
+            height: 2.8rem;
+        }
+
+        .postamble {
+            padding: 1.25rem;
+        }
+
+        .postamble__entry {
+            color: #ffffff;
+        }
+    </style>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/solarized-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.chatlog__markdown-pre--multiline').forEach(e => hljs.highlightBlock(e));
+        });
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.8.1/lottie.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.chatlog__sticker--media[data-source]').forEach(e => {
+                const imageDataUrl = e.getAttribute('data-source');
+
+                const anim = lottie.loadAnimation({
+                  container: e,
+                  renderer: 'svg',
+                  loop: true,
+                  autoplay: true,
+                  path: imageDataUrl
+                });
+
+                anim.addEventListener('data_failed', () =>
+                    e.innerHTML = '<strong>[Sticker cannot be rendered]</strong>'
+                );
+            });
+        });
+    </script>
+
+    <script>
+        function scrollToMessage(event, id) {
+            var element = document.getElementById('chatlog__message-container-' + id);
+            if (!element)
+                return;
+
+            event.preventDefault();
+            element.classList.add('chatlog__message-container--highlighted');
+
+            window.scrollTo({
+                top: element.getBoundingClientRect().top - document.body.getBoundingClientRect().top - (window.innerHeight / 2),
+                behavior: 'smooth'
+            });
+
+            window.setTimeout(function() {
+                element.classList.remove('chatlog__message-container--highlighted');
+            }, 2000);
+        }
+
+        function showSpoiler(event, element) {
+            if (!element)
+                return;
+
+            if (element.classList.contains('chatlog__attachment--hidden')) {
+                event.preventDefault();
+                element.classList.remove('chatlog__attachment--hidden');
+            }
+
+            if (element.classList.contains('chatlog__markdown-spoiler--hidden')) {
+                event.preventDefault();
+                element.classList.remove('chatlog__markdown-spoiler--hidden');
+            }
+        }
+    </script>
+
+    <svg style="display: none">
+        <symbol id="attachment-icon" viewBox="0 0 720 960">
+            <path fill="#f4f5fb" d="M50,935a25,25,0,0,1-25-25V50A25,25,0,0,1,50,25H519.6L695,201.32V910a25,25,0,0,1-25,25Z"/>
+            <path fill="#7789c4" d="M509.21,50,670,211.63V910H50V50H509.21M530,0H50A50,50,0,0,0,0,50V910a50,50,0,0,0,50,50H670a50,50,0,0,0,50-50h0V191Z"/>
+            <path fill="#f4f5fb" d="M530,215a25,25,0,0,1-25-25V50a25,25,0,0,1,16.23-23.41L693.41,198.77A25,25,0,0,1,670,215Z"/>
+            <path fill="#7789c4" d="M530,70.71,649.29,190H530V70.71M530,0a50,50,0,0,0-50,50V190a50,50,0,0,0,50,50H670a50,50,0,0,0,50-50Z"/>
+        </symbol>
+    </svg>
+</head>
+<body>
+
+<div class="preamble">
+    <div class="preamble__guild-icon-container">
+        <img class="preamble__guild-icon" src="https://cdn.discordapp.com/icons/913515209916809226/8d423bc343cf35a3ad495c2db7de4d5b.png" alt="Guild icon" loading="lazy">
+    </div>
+    <div class="preamble__entries-container">
+        <div class="preamble__entry">Caedes Corvi</div>
+        <div class="preamble__entry">﹒one﹕reunion / ﹒one ; kitchen ( kasimir, pasi &amp; behiye )</div>
+
+
+    </div>
+</div>
+
+<div class="chatlog">
+
+
+
+<div class="chatlog__message-group">
+    <div id="chatlog__message-container-990464165741223966" class="chatlog__message-container " data-message-id="990464165741223966">
+        <div class="chatlog__message">
+            <div class="chatlog__message-aside">
+                    <img class="chatlog__avatar" src="https://cdn.discordapp.com/avatars/310937492369047553/c79931ae7ccbf8fc785e2d2cabc5e196.png?size=512" alt="Avatar" loading="lazy">
+            </div>
+
+            <div class="chatlog__message-primary">
+                    <div class="chatlog__header">
+                        <span class="chatlog__author" style="color: rgb(136, 159, 192)" title="jules#6504" data-user-id="310937492369047553">jules / magpie</span>
+
+
+                        <span class="chatlog__timestamp">25-Jun-22 09:50 PM</span>
+                    </div>
+
+                    <div class="chatlog__content chatlog__markdown">
+                        <span class="chatlog__markdown-preserve"><span class="chatlog__markdown-mention" title="okay.#0214">@vic / robin ( your soul )</span> <span class="chatlog__markdown-mention" title="moonrise#4274">@ever ✢ lyrebird</span></span>
+
+                    </div>
+
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+    <div id="chatlog__message-container-990464441793515540" class="chatlog__message-container " data-message-id="990464441793515540">
+        <div class="chatlog__message">
+            <div class="chatlog__message-aside">
+                    <img class="chatlog__avatar" src="https://cdn.discordapp.com/avatars/990458333905436723/7b51d493676cbd6d19950e8d7ab5d680.png?size=512" alt="Avatar" loading="lazy">
+            </div>
+
+            <div class="chatlog__message-primary">
+                    <div class="chatlog__header">
+                        <span class="chatlog__author" style="" title="&#120104;&#120094;&#120112;&#120102;&#120106;&#120102;&#120111; &#120099;&#120111;&#120098;&#120102;#0000" data-user-id="990458333905436723">&#120104;&#120094;&#120112;&#120102;&#120106;&#120102;&#120111; &#120099;&#120111;&#120098;&#120102;</span>
+
+                            <span class="chatlog__bot-label">BOT</span>
+
+                        <span class="chatlog__timestamp">25-Jun-22 09:52 PM</span>
+                    </div>
+
+                    <div class="chatlog__content chatlog__markdown">
+                        <span class="chatlog__markdown-preserve">There is a spectre haunting the room. It is not a spectre Kasimir likes – and <em>no**,</em> he’s not talking about the slip of a ghost holding the knife, or the reaper behind him, <em>he’s talking about</em> – he stops himself short. Focus, man. Focus on — <em>that</em>. The cake. The “cake”? It is too big – not in the way a cake for a banquet hall or a wedding is big, but like a tampered photograph, the cake cut out of one negative, pasted onto one much more zoomed in. It’s over 40cm across, and Kasimir feels his wrists ache, looking at the piped rosettes across the surface. 
+He holds his hand up to Pasi, gently blocking their knife’s access to the cake, and tries to ignore their ominous words. “Let me take a look at it first, would you? <em>Before</em> we start touching.” It is a warning (hands off!) and a promise (for now). And, leaning in, he sniffs the cake. He’s searching for hints of the kirsch he knows the layers of cake should be soaked with – if it isn’t there, they’re dealing with something else.</span>
+
+                    </div>
+
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+    <div id="chatlog__message-container-990495197991415869" class="chatlog__message-container " data-message-id="990495197991415869">
+        <div class="chatlog__message">
+            <div class="chatlog__message-aside">
+                    <img class="chatlog__avatar" src="https://cdn.discordapp.com/avatars/990458333905436723/2cc83d38171bc6e3929772cb0bb1d4c8.png?size=512" alt="Avatar" loading="lazy">
+            </div>
+
+            <div class="chatlog__message-primary">
+                    <div class="chatlog__header">
+                        <span class="chatlog__author" style="" title="&#119835;&#119838;&#119841;&#119842;&#119858;&#119838;#0000" data-user-id="990458333905436723">&#119835;&#119838;&#119841;&#119842;&#119858;&#119838;</span>
+
+                            <span class="chatlog__bot-label">BOT</span>
+
+                        <span class="chatlog__timestamp">25-Jun-22 11:54 PM</span>
+                    </div>
+
+                    <div class="chatlog__content chatlog__markdown">
+                        <span class="chatlog__markdown-preserve">she watches it unfold with dotted amusement — and staying true to her self, growing impatience. surprisingly, a couple minutes passed before her to the clicked,  “what are you now, the abnormally big cakes inspector?” with a roll of her eyes, her heels meet the ground with a dry “<em>clack</em>”, circling around to position herself. “pasi, you either use that knife on the cake,” arms fold against her chest as she poked the inside of her cheek with the tip of a tongue. “or <em>i</em> will be the one to use it on mr. sniffer here.”</span>
+
+                    </div>
+
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+    <div id="chatlog__message-container-990506621065121863" class="chatlog__message-container " data-message-id="990506621065121863">
+        <div class="chatlog__message">
+            <div class="chatlog__message-aside">
+                    <img class="chatlog__avatar" src="https://cdn.discordapp.com/avatars/990458333905436723/f91483b83fd80d7f5c7ae17a349cbb0e.png?size=512" alt="Avatar" loading="lazy">
+            </div>
+
+            <div class="chatlog__message-primary">
+                    <div class="chatlog__header">
+                        <span class="chatlog__author" style="" title="&#119823;&#119808;&#119826;&#119816;#0000" data-user-id="990458333905436723">&#119823;&#119808;&#119826;&#119816;</span>
+
+                            <span class="chatlog__bot-label">BOT</span>
+
+                        <span class="chatlog__timestamp">26-Jun-22 12:39 AM</span>
+                    </div>
+
+                    <div class="chatlog__content chatlog__markdown">
+                        <span class="chatlog__markdown-preserve">it almost feels like a celebration, doesn&#39;t it, with a too-large cake and not-quite friends; knife steady in their hand as they let kas take his time with his inspection before digging the knife into the offending dessert — blade clean through the middle. waiting for it to hit something — bone perhaps, or maybe that&#39;s just another dream of yours again — breath held. 
+
+&quot;shall we have a taste? i do believe kas, you would be the one with the most refined palette. should we hope or not hope that it was made by someone like you?&quot;</span>
+
+                    </div>
+
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+    <div id="chatlog__message-container-990508024240160768" class="chatlog__message-container " data-message-id="990508024240160768">
+        <div class="chatlog__message">
+            <div class="chatlog__message-aside">
+                    <img class="chatlog__avatar" src="https://cdn.discordapp.com/avatars/990458333905436723/beae2a82bcb687f50a78fd0eab85ee94.png?size=512" alt="Avatar" loading="lazy">
+            </div>
+
+            <div class="chatlog__message-primary">
+                    <div class="chatlog__header">
+                        <span class="chatlog__author" style="" title="*  &#119905;ℎ&#119890; &#119886;&#119889;&#119898;&#119894;&#119899;#0000" data-user-id="990458333905436723">*  &#119905;ℎ&#119890; &#119886;&#119889;&#119898;&#119894;&#119899;</span>
+
+                            <span class="chatlog__bot-label">BOT</span>
+
+                        <span class="chatlog__timestamp">26-Jun-22 12:45 AM</span>
+                    </div>
+
+                    <div class="chatlog__content chatlog__markdown">
+                        <span class="chatlog__markdown-preserve"><div class="chatlog__markdown-quote"><div class="chatlog__markdown-quote-border"></div><div class="chatlog__markdown-quote-content"><span class="chatlog__markdown-pre chatlog__markdown-pre--inline">MAGPIE roll int.</span></div></div></span>
+
+                    </div>
+
+
+
+
+            </div>
+        </div>
+    </div>
+    <div id="chatlog__message-container-990509192651632680" class="chatlog__message-container " data-message-id="990509192651632680">
+        <div class="chatlog__message">
+            <div class="chatlog__message-aside">
+                    <div class="chatlog__short-timestamp" title="26-Jun-22 12:49 AM">00:49</div>
+            </div>
+
+            <div class="chatlog__message-primary">
+
+                    <div class="chatlog__content chatlog__markdown">
+                        <span class="chatlog__markdown-preserve"><span class="chatlog__markdown-mention" style="color: rgb(136, 159, 192); background-color: rgba(136, 159, 192, 0.1);">@MAGPIE.</span></span>
+
+                    </div>
+
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+    <div id="chatlog__message-container-990510560225394728" class="chatlog__message-container " data-message-id="990510560225394728">
+        <div class="chatlog__message">
+            <div class="chatlog__message-aside">
+                    <img class="chatlog__avatar" src="https://cdn.discordapp.com/avatars/990458333905436723/7b51d493676cbd6d19950e8d7ab5d680.png?size=512" alt="Avatar" loading="lazy">
+            </div>
+
+            <div class="chatlog__message-primary">
+                    <div class="chatlog__header">
+                        <span class="chatlog__author" style="" title="&#120104;&#120094;&#120112;&#120102;&#120106;&#120102;&#120111; &#120099;&#120111;&#120098;&#120102;#0000" data-user-id="990458333905436723">&#120104;&#120094;&#120112;&#120102;&#120106;&#120102;&#120111; &#120099;&#120111;&#120098;&#120102;</span>
+
+                            <span class="chatlog__bot-label">BOT</span>
+
+                        <span class="chatlog__timestamp">26-Jun-22 12:55 AM</span>
+                    </div>
+
+                    <div class="chatlog__content chatlog__markdown">
+                        <span class="chatlog__markdown-preserve">He feels like a piece of meat. Between Pasi’s knife and Behiye’s leering gaze, he wants to wither, but the terrible things he wouldn’t put past Them flash through his mind, and he doesn’t waver. He resolves himself, and inhales deeply, relying on his decades of experience to find the flavours and notes he’s looking for – the richness of chocolate, the sour cherries and sharp liqueur, the light sweetness of the whipped cream.</span>
+
+                    </div>
+
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+    <div id="chatlog__message-container-990510641699778610" class="chatlog__message-container " data-message-id="990510641699778610">
+        <div class="chatlog__message">
+            <div class="chatlog__message-aside">
+                    <img class="chatlog__avatar" src="https://cdn.discordapp.com/avatars/261302296103747584/b4926b52f7f1c966e01e25f0b33253f1.png?size=512" alt="Avatar" loading="lazy">
+            </div>
+
+            <div class="chatlog__message-primary">
+                    <div class="chatlog__header">
+                        <span class="chatlog__author" style="color: rgb(133, 125, 103)" title="Avrae#6944" data-user-id="261302296103747584">Avrae</span>
+
+                            <span class="chatlog__bot-label">BOT</span>
+
+                        <span class="chatlog__timestamp">26-Jun-22 12:55 AM</span>
+                    </div>
+
+                    <div class="chatlog__content chatlog__markdown">
+                        <span class="chatlog__markdown-preserve"><span class="chatlog__markdown-mention" title="jules#6504">@jules / magpie</span>  <img loading="lazy" class="chatlog__emoji " alt="🎲" title="game_die" src="https://twemoji.maxcdn.com/2/svg/1f3b2.svg">
+<strong>Result</strong>: 1d20 (17) + 3
+<strong>Total</strong>: 20</span>
+
+                    </div>
+
+
+
+
+                    <div class="chatlog__reactions">
+                            <div class="chatlog__reaction" title="crying">
+                                <img class="chatlog__emoji chatlog__emoji--small" alt="crying" src="https://cdn.discordapp.com/emojis/892829144646316042.gif" loading="lazy">
+                                <span class="chatlog__reaction-count">2</span>
+                            </div>
+                            <div class="chatlog__reaction" title="_i_pretend_i_do_not_see_it">
+                                <img class="chatlog__emoji chatlog__emoji--small" alt="_i_pretend_i_do_not_see_it" src="https://cdn.discordapp.com/emojis/945183783714431026.png" loading="lazy">
+                                <span class="chatlog__reaction-count">2</span>
+                            </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+    <div id="chatlog__message-container-990511768763789322" class="chatlog__message-container " data-message-id="990511768763789322">
+        <div class="chatlog__message">
+            <div class="chatlog__message-aside">
+                    <img class="chatlog__avatar" src="https://cdn.discordapp.com/avatars/990458333905436723/beae2a82bcb687f50a78fd0eab85ee94.png?size=512" alt="Avatar" loading="lazy">
+            </div>
+
+            <div class="chatlog__message-primary">
+                    <div class="chatlog__header">
+                        <span class="chatlog__author" style="" title="*  &#119905;ℎ&#119890; &#119886;&#119889;&#119898;&#119894;&#119899;#0000" data-user-id="990458333905436723">*  &#119905;ℎ&#119890; &#119886;&#119889;&#119898;&#119894;&#119899;</span>
+
+                            <span class="chatlog__bot-label">BOT</span>
+
+                        <span class="chatlog__timestamp">26-Jun-22 01:00 AM</span>
+                    </div>
+
+                    <div class="chatlog__content chatlog__markdown">
+                        <span class="chatlog__markdown-preserve"><div class="chatlog__markdown-quote"><div class="chatlog__markdown-quote-border"></div><div class="chatlog__markdown-quote-content"><span class="chatlog__markdown-pre chatlog__markdown-pre--inline">The cake smells fine, perfect even, but as you lean in closer you pick up on an unfamiliar scent. Something that does not belong. Something not meant to be in a cake but rather worn on one&#39;s wrists. You know that should it be ingested they will most likely not die.</span></div></div></span>
+
+                    </div>
+
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+    <div id="chatlog__message-container-990515510284275732" class="chatlog__message-container " data-message-id="990515510284275732">
+        <div class="chatlog__message">
+            <div class="chatlog__message-aside">
+                    <img class="chatlog__avatar" src="https://cdn.discordapp.com/avatars/990458333905436723/7b51d493676cbd6d19950e8d7ab5d680.png?size=512" alt="Avatar" loading="lazy">
+            </div>
+
+            <div class="chatlog__message-primary">
+                    <div class="chatlog__header">
+                        <span class="chatlog__author" style="" title="&#120104;&#120094;&#120112;&#120102;&#120106;&#120102;&#120111; &#120099;&#120111;&#120098;&#120102;#0000" data-user-id="990458333905436723">&#120104;&#120094;&#120112;&#120102;&#120106;&#120102;&#120111; &#120099;&#120111;&#120098;&#120102;</span>
+
+                            <span class="chatlog__bot-label">BOT</span>
+
+                        <span class="chatlog__timestamp">26-Jun-22 01:15 AM</span>
+                    </div>
+
+                    <div class="chatlog__content chatlog__markdown">
+                        <span class="chatlog__markdown-preserve">Mind whirring, Kasimir turns back to Pasi, softening his expression, and offering them his best attempt at an easygoing smirk. “How could I have either of you slice the cake anyways? I’m the professional, allow me.” Reaching out, he grasps the knife, palm wrapped around the blunt edge of the blade, fingers just-not brushing theirs’. Glancing back to Behiye, his look is serene as he starts running hot water in the sink. “Believe it or not, they train us on how to slice cakes evenly. I’ll make sure everyone gets a piece.”
+With his clean hand, he swipes a finger through the cream, and brings it to his lips. “Decent, but something about it is… non-traditional. I can’t quite put my finger on it – herbal, or… <em>floral</em>, maybe?”</span>
+
+                    </div>
+
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+    <div id="chatlog__message-container-990647975879507978" class="chatlog__message-container " data-message-id="990647975879507978">
+        <div class="chatlog__message">
+            <div class="chatlog__message-aside">
+                    <img class="chatlog__avatar" src="https://cdn.discordapp.com/avatars/990458333905436723/f91483b83fd80d7f5c7ae17a349cbb0e.png?size=512" alt="Avatar" loading="lazy">
+            </div>
+
+            <div class="chatlog__message-primary">
+                    <div class="chatlog__header">
+                        <span class="chatlog__author" style="" title="&#119823;&#119808;&#119826;&#119816;#0000" data-user-id="990458333905436723">&#119823;&#119808;&#119826;&#119816;</span>
+
+                            <span class="chatlog__bot-label">BOT</span>
+
+                        <span class="chatlog__timestamp">26-Jun-22 10:01 AM</span>
+                    </div>
+
+                    <div class="chatlog__content chatlog__markdown">
+                        <span class="chatlog__markdown-preserve">they respond to his smirk with a sharply raised eyebrow, picking up the fallen apple and setting it gently on the counter before turning their full attention to kasimir. &quot;non-traditional in the sense of baking innovation or non-traditional in the sense that a bite will have us paralyzed or dead? i&#39;m certain more than one herb or flower does that, and it wouldn&#39;t be the most outrageous of gimmicks, given what we&#39;ve seen and done ourselves.&quot; 
+
+arms crossed. they rummage through the drawers to find plates; three, fanned out around the cake.</span>
+
+                    </div>
+
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+    <div id="chatlog__message-container-990649769863041034" class="chatlog__message-container " data-message-id="990649769863041034">
+        <div class="chatlog__message">
+            <div class="chatlog__message-aside">
+                    <img class="chatlog__avatar" src="https://cdn.discordapp.com/avatars/990458333905436723/2cc83d38171bc6e3929772cb0bb1d4c8.png?size=512" alt="Avatar" loading="lazy">
+            </div>
+
+            <div class="chatlog__message-primary">
+                    <div class="chatlog__header">
+                        <span class="chatlog__author" style="" title="&#119835;&#119838;&#119841;&#119842;&#119858;&#119838;#0000" data-user-id="990458333905436723">&#119835;&#119838;&#119841;&#119842;&#119858;&#119838;</span>
+
+                            <span class="chatlog__bot-label">BOT</span>
+
+                        <span class="chatlog__timestamp">26-Jun-22 10:08 AM</span>
+                    </div>
+
+                    <div class="chatlog__content chatlog__markdown">
+                        <span class="chatlog__markdown-preserve">“i think you should taste it, then.” behi turns to pasi and shrugs, as if in search for an affirmation. “since you’re the specialist and the best of the two of us when it comes to big ass cakes that might be poisoned.” 
+
+picking one of the the plates that they put out, she circles the cake. but eyes the apple, as well. “do apples usually do that? split so easily?” a little wrinkle, a pensive pout. “i would never know.”</span>
+
+                    </div>
+
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+    <div id="chatlog__message-container-990664583125544960" class="chatlog__message-container " data-message-id="990664583125544960">
+        <div class="chatlog__message">
+            <div class="chatlog__message-aside">
+                    <img class="chatlog__avatar" src="https://cdn.discordapp.com/avatars/990458333905436723/7b51d493676cbd6d19950e8d7ab5d680.png?size=512" alt="Avatar" loading="lazy">
+            </div>
+
+            <div class="chatlog__message-primary">
+                    <div class="chatlog__header">
+                        <span class="chatlog__author" style="" title="&#120104;&#120094;&#120112;&#120102;&#120106;&#120102;&#120111; &#120099;&#120111;&#120098;&#120102;#0000" data-user-id="990458333905436723">&#120104;&#120094;&#120112;&#120102;&#120106;&#120102;&#120111; &#120099;&#120111;&#120098;&#120102;</span>
+
+                            <span class="chatlog__bot-label">BOT</span>
+
+                        <span class="chatlog__timestamp">26-Jun-22 11:07 AM</span>
+                    </div>
+
+                    <div class="chatlog__content chatlog__markdown">
+                        <span class="chatlog__markdown-preserve">Kasimir nods at Pasi, and takes the knife. “Like… perfume, almost. I’m not sure, I don’t really use it, so I don’t know exactly, but that’s what it reminds me of.” He runs it under the hot water until it steams against the cool air. “If it is perfume, whether it’s poisonous or not depends on the dose, and how it’s been used – I’ll be able to get a better sense looking more closely.” He dries it efficiently against a kitchen towel, a quick, practiced motion that says ‘I have done this over and over and over.’ 
+
+Turning to Behiye, he cocks his head. “If it’s soaked into the cake, or mixed with the kirsch, it certainly won’t be good for us. But if it was baked into the cake itself, I’m less concerned. The heat removes a lot of the danger.”
+
+He doesn’t cut into the centre of the cake, like he would to cut slices. Instead, with a steady hand, he slices against the edge, peeling off the whipped cream to reveal a sliver of the cake within. He slices again, and again, like he’s done for wedding cakes in the past, delicate lengthwise portions revealing a cross-section of the cake inside, and places the portions on the plates Behiye offered.
+
+Taking a fork, he starts picking it apart – half a child playing with his food, half a scientist dissecting a subject of study.
+
+For now, he ignores the apple. If he weren’t so focused on the cake, he would say — <em>“No, they don’t. I have never seen an apple split in half quite like that. Show it to me, I want to see just how it’s rotted.”</em> But the cake has captured his full attention. In a strange way, it feels as though it was meant for him. For what, though, he isn’t sure.</span>
+
+                    </div>
+
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+    <div id="chatlog__message-container-990666658521702420" class="chatlog__message-container " data-message-id="990666658521702420">
+        <div class="chatlog__message">
+            <div class="chatlog__message-aside">
+                    <img class="chatlog__avatar" src="https://cdn.discordapp.com/avatars/990458333905436723/beae2a82bcb687f50a78fd0eab85ee94.png?size=512" alt="Avatar" loading="lazy">
+            </div>
+
+            <div class="chatlog__message-primary">
+                    <div class="chatlog__header">
+                        <span class="chatlog__author" style="" title="*  &#119905;ℎ&#119890; &#119886;&#119889;&#119898;&#119894;&#119899;#0000" data-user-id="990458333905436723">*  &#119905;ℎ&#119890; &#119886;&#119889;&#119898;&#119894;&#119899;</span>
+
+                            <span class="chatlog__bot-label">BOT</span>
+
+                        <span class="chatlog__timestamp">26-Jun-22 11:15 AM</span>
+                    </div>
+
+                    <div class="chatlog__content chatlog__markdown">
+                        <span class="chatlog__markdown-preserve">CW: drug name mention
+
+<div class="chatlog__markdown-quote"><div class="chatlog__markdown-quote-border"></div><div class="chatlog__markdown-quote-content"><span class="chatlog__markdown-pre chatlog__markdown-pre--inline">Your knife cuts through the cake cleanly until it doesn&#39;t. It stops at the half-way point and it does not go through. It&#39;s stuck on something, and if you were to reach in you would find a bottle labeled</span> - <span class="chatlog__markdown-spoiler chatlog__markdown-spoiler--hidden" onclick="showSpoiler(event, this)"> OPIUM </span>  -<span class="chatlog__markdown-pre chatlog__markdown-pre--inline"> with half the sticker scratched off.</span></div></div></span>
+
+                            <span class="chatlog__edited-timestamp" title="26-Jun-22 11:19 AM">(edited)</span>
+                    </div>
+
+
+
+
+                    <div class="chatlog__reactions">
+                            <div class="chatlog__reaction" title="eyes">
+                                <img class="chatlog__emoji chatlog__emoji--small" alt="&#128064;" src="https://twemoji.maxcdn.com/2/svg/1f440.svg" loading="lazy">
+                                <span class="chatlog__reaction-count">8</span>
+                            </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+    <div id="chatlog__message-container-990681231983280149" class="chatlog__message-container " data-message-id="990681231983280149">
+        <div class="chatlog__message">
+            <div class="chatlog__message-aside">
+                    <img class="chatlog__avatar" src="https://cdn.discordapp.com/avatars/990458333905436723/2cc83d38171bc6e3929772cb0bb1d4c8.png?size=512" alt="Avatar" loading="lazy">
+            </div>
+
+            <div class="chatlog__message-primary">
+                    <div class="chatlog__header">
+                        <span class="chatlog__author" style="" title="&#119835;&#119838;&#119841;&#119842;&#119858;&#119838;#0000" data-user-id="990458333905436723">&#119835;&#119838;&#119841;&#119842;&#119858;&#119838;</span>
+
+                            <span class="chatlog__bot-label">BOT</span>
+
+                        <span class="chatlog__timestamp">26-Jun-22 12:13 PM</span>
+                    </div>
+
+                    <div class="chatlog__content chatlog__markdown">
+                        <span class="chatlog__markdown-preserve">&quot;You don&#39;t wear perfume?&quot; Of course her mind, of all things said, would focus on the one irrelevant thing - but also the most curious to her for some reason. Alas, as soon as she hears the clinking sound, all of her thoughts soon vanish.
+
+With a cocked head, she places the plate, in which the perfect slice lays, aside with the mental note of perhaps inviting Kasimir to a party with a cake to be served wouldn&#39;t be too bad, after all. &quot;Hold on.&quot; 
+
+There wasn&#39;t a thing about her that was swift, specially when around those who <em>know</em> her to an extent. Without hesitation, she reaches into the sponge and pulls out the bottle. &quot;Don&#39;t eat anything.&quot; As if it wasn&#39;t obvious already. &quot;Look.&quot; She turns the bottle to them, where they could read the label, and inspects the it carefully, checking if it was open or even full.</span>
+
+                    </div>
+
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+    <div id="chatlog__message-container-990686026177605672" class="chatlog__message-container " data-message-id="990686026177605672">
+        <div class="chatlog__message">
+            <div class="chatlog__message-aside">
+                    <img class="chatlog__avatar" src="https://cdn.discordapp.com/avatars/990458333905436723/beae2a82bcb687f50a78fd0eab85ee94.png?size=512" alt="Avatar" loading="lazy">
+            </div>
+
+            <div class="chatlog__message-primary">
+                    <div class="chatlog__header">
+                        <span class="chatlog__author" style="" title="*  &#119905;ℎ&#119890; &#119886;&#119889;&#119898;&#119894;&#119899;#0000" data-user-id="990458333905436723">*  &#119905;ℎ&#119890; &#119886;&#119889;&#119898;&#119894;&#119899;</span>
+
+                            <span class="chatlog__bot-label">BOT</span>
+
+                        <span class="chatlog__timestamp">26-Jun-22 12:32 PM</span>
+                    </div>
+
+                    <div class="chatlog__content chatlog__markdown">
+                        <span class="chatlog__markdown-preserve"><div class="chatlog__markdown-quote"><div class="chatlog__markdown-quote-border"></div><div class="chatlog__markdown-quote-content"><span class="chatlog__markdown-pre chatlog__markdown-pre--inline">It is full, but opened.</span></div></div></span>
+
+                    </div>
+
+
+
+
+                    <div class="chatlog__reactions">
+                            <div class="chatlog__reaction" title="yikes">
+                                <img class="chatlog__emoji chatlog__emoji--small" alt="yikes" src="https://cdn.discordapp.com/emojis/881401910307995658.png" loading="lazy">
+                                <span class="chatlog__reaction-count">4</span>
+                            </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+    <div id="chatlog__message-container-990739848203743242" class="chatlog__message-container " data-message-id="990739848203743242">
+        <div class="chatlog__message">
+            <div class="chatlog__message-aside">
+                    <img class="chatlog__avatar" src="https://cdn.discordapp.com/avatars/990458333905436723/f91483b83fd80d7f5c7ae17a349cbb0e.png?size=512" alt="Avatar" loading="lazy">
+            </div>
+
+            <div class="chatlog__message-primary">
+                    <div class="chatlog__header">
+                        <span class="chatlog__author" style="" title="&#119823;&#119808;&#119826;&#119816;#0000" data-user-id="990458333905436723">&#119823;&#119808;&#119826;&#119816;</span>
+
+                            <span class="chatlog__bot-label">BOT</span>
+
+                        <span class="chatlog__timestamp">26-Jun-22 04:06 PM</span>
+                    </div>
+
+                    <div class="chatlog__content chatlog__markdown">
+                        <span class="chatlog__markdown-preserve">long fingers pluck the ornate bottle from behi&#39;s hands, slowly turning the object this way and that; the content swirling in the glass. it unscrews too easily to be new, the sticker peeling off only further proof of its use. 
+
+&quot;are we sure it&#39;s as labeled? for all we know, it could have been refilled with something else.&quot;
+
+curious and curiouser. they hum quietly, eyeing the ruined sticker, unsure if it was a prescription label or a simple sticker; tempting as a <em>drink me</em> in children&#39;s tales.  
+
+&quot;would they be so kind as to spell out what they infused the cake with?&quot; amused, wry. &quot;what does your expertise say, kas?&quot;</span>
+
+                    </div>
+
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+    <div id="chatlog__message-container-990755686235373579" class="chatlog__message-container " data-message-id="990755686235373579">
+        <div class="chatlog__message">
+            <div class="chatlog__message-aside">
+                    <img class="chatlog__avatar" src="https://cdn.discordapp.com/avatars/990458333905436723/7b51d493676cbd6d19950e8d7ab5d680.png?size=512" alt="Avatar" loading="lazy">
+            </div>
+
+            <div class="chatlog__message-primary">
+                    <div class="chatlog__header">
+                        <span class="chatlog__author" style="" title="&#120104;&#120094;&#120112;&#120102;&#120106;&#120102;&#120111; &#120099;&#120111;&#120098;&#120102;#0000" data-user-id="990458333905436723">&#120104;&#120094;&#120112;&#120102;&#120106;&#120102;&#120111; &#120099;&#120111;&#120098;&#120102;</span>
+
+                            <span class="chatlog__bot-label">BOT</span>
+
+                        <span class="chatlog__timestamp">26-Jun-22 05:09 PM</span>
+                    </div>
+
+                    <div class="chatlog__content chatlog__markdown">
+                        <span class="chatlog__markdown-preserve">“There’s a procedure, you know, for dealing with food contaminants. For one,” Kasimir says, taking out a handkerchief from his pocket, and snatches it from Pasi – what’s the opposite of hot potato? “You don’t want to touch something like this with your bare hands. Even if it isn’t poisonous, these sorts of chemicals at high concentration can cause serious contact burns.”
+
+Setting it down on the counter, he pulls a pair of dishwashing gloves from under the sink, wraps his handkerchief in a napkin, and examines the bottle. His gloved fingers traces the lettering – he won’t say it, in fear of one of the others making a move, but he thinks Pasi’s right – at least somewhat. He isn’t convinced it’s actually the drug – something about the label looks more advertorial than pharmaceutical.
+
+“Give me a second, don’t just talk nonsense. Certainly,” he pointedly does not look behind him, “neither of you are paying well enough for me to play cupbearer. Let me work instead.”</span>
+
+                    </div>
+
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+    <div id="chatlog__message-container-990756355096842272" class="chatlog__message-container " data-message-id="990756355096842272">
+        <div class="chatlog__message">
+            <div class="chatlog__message-aside">
+                    <img class="chatlog__avatar" src="https://cdn.discordapp.com/avatars/310937492369047553/c79931ae7ccbf8fc785e2d2cabc5e196.png?size=512" alt="Avatar" loading="lazy">
+            </div>
+
+            <div class="chatlog__message-primary">
+                    <div class="chatlog__header">
+                        <span class="chatlog__author" style="color: rgb(136, 159, 192)" title="jules#6504" data-user-id="310937492369047553">jules / magpie</span>
+
+
+                        <span class="chatlog__timestamp">26-Jun-22 05:12 PM</span>
+                    </div>
+
+                    <div class="chatlog__content chatlog__markdown">
+                        <span class="chatlog__markdown-preserve">Changed the channel name.</span>
+
+                    </div>
+
+
+
+
+            </div>
+        </div>
+    </div>
+    <div id="chatlog__message-container-990756408989462609" class="chatlog__message-container " data-message-id="990756408989462609">
+        <div class="chatlog__message">
+            <div class="chatlog__message-aside">
+                    <div class="chatlog__short-timestamp" title="26-Jun-22 05:12 PM">17:12</div>
+            </div>
+
+            <div class="chatlog__message-primary">
+
+                    <div class="chatlog__content chatlog__markdown">
+                        <span class="chatlog__markdown-preserve">Changed the channel name.</span>
+
+                    </div>
+
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+    <div id="chatlog__message-container-990763090108878899" class="chatlog__message-container " data-message-id="990763090108878899">
+        <div class="chatlog__message">
+            <div class="chatlog__message-aside">
+                    <img class="chatlog__avatar" src="https://cdn.discordapp.com/avatars/990458333905436723/beae2a82bcb687f50a78fd0eab85ee94.png?size=512" alt="Avatar" loading="lazy">
+            </div>
+
+            <div class="chatlog__message-primary">
+                    <div class="chatlog__header">
+                        <span class="chatlog__author" style="" title="*  &#119905;ℎ&#119890; &#119886;&#119889;&#119898;&#119894;&#119899;#0000" data-user-id="990458333905436723">*  &#119905;ℎ&#119890; &#119886;&#119889;&#119898;&#119894;&#119899;</span>
+
+                            <span class="chatlog__bot-label">BOT</span>
+
+                        <span class="chatlog__timestamp">26-Jun-22 05:38 PM</span>
+                    </div>
+
+                    <div class="chatlog__content chatlog__markdown">
+                        <span class="chatlog__markdown-preserve"><span class="chatlog__markdown-mention" style="color: rgb(136, 159, 192); background-color: rgba(136, 159, 192, 0.1);">@MAGPIE.</span>  <span class="chatlog__markdown-pre chatlog__markdown-pre--inline">roll !int</span></span>
+
+                    </div>
+
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+    <div id="chatlog__message-container-990763547791351868" class="chatlog__message-container " data-message-id="990763547791351868">
+        <div class="chatlog__message">
+            <div class="chatlog__message-aside">
+                    <img class="chatlog__avatar" src="https://cdn.discordapp.com/avatars/261302296103747584/b4926b52f7f1c966e01e25f0b33253f1.png?size=512" alt="Avatar" loading="lazy">
+            </div>
+
+            <div class="chatlog__message-primary">
+                    <div class="chatlog__header">
+                        <span class="chatlog__author" style="color: rgb(133, 125, 103)" title="Avrae#6944" data-user-id="261302296103747584">Avrae</span>
+
+                            <span class="chatlog__bot-label">BOT</span>
+
+                        <span class="chatlog__timestamp">26-Jun-22 05:40 PM</span>
+                    </div>
+
+                    <div class="chatlog__content chatlog__markdown">
+                        <span class="chatlog__markdown-preserve"><span class="chatlog__markdown-mention" title="jules#6504">@jules / magpie</span>  <img loading="lazy" class="chatlog__emoji " alt="🎲" title="game_die" src="https://twemoji.maxcdn.com/2/svg/1f3b2.svg">
+<strong>Result</strong>: 1d20 (19) + 3
+<strong>Total</strong>: 22</span>
+
+                    </div>
+
+
+
+
+                    <div class="chatlog__reactions">
+                            <div class="chatlog__reaction" title="zoe">
+                                <img class="chatlog__emoji chatlog__emoji--small" alt="zoe" src="https://cdn.discordapp.com/emojis/945353432087277568.gif" loading="lazy">
+                                <span class="chatlog__reaction-count">1</span>
+                            </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+    <div id="chatlog__message-container-990782038388916274" class="chatlog__message-container " data-message-id="990782038388916274">
+        <div class="chatlog__message">
+            <div class="chatlog__message-aside">
+                    <img class="chatlog__avatar" src="https://cdn.discordapp.com/avatars/990458333905436723/2cc83d38171bc6e3929772cb0bb1d4c8.png?size=512" alt="Avatar" loading="lazy">
+            </div>
+
+            <div class="chatlog__message-primary">
+                    <div class="chatlog__header">
+                        <span class="chatlog__author" style="" title="&#119835;&#119838;&#119841;&#119842;&#119858;&#119838;#0000" data-user-id="990458333905436723">&#119835;&#119838;&#119841;&#119842;&#119858;&#119838;</span>
+
+                            <span class="chatlog__bot-label">BOT</span>
+
+                        <span class="chatlog__timestamp">26-Jun-22 06:54 PM</span>
+                    </div>
+
+                    <div class="chatlog__content chatlog__markdown">
+                        <span class="chatlog__markdown-preserve">&quot;you were literally sniffing the cake, don&#39;t you think the fumes would get into your bloodstream?&quot; behiye&#39;s tone was pointed, once again hopping to sit on the counter besides the cake to watch as kas examined the bottle with extra care. 
+
+with a roll of her eyes, she sighed. &quot;okay, please go quick. we don&#39;t have the entire day.&quot; and with that, she scans the room once more, eyes stopping on pasi for a second and wiggling her eyebrows, before landing on the apple once more. 
+
+she considers taking it, and she considers not. a million thoughts racing through her head at once. until she hops off and gently cradles both parts together. &quot;did we all see the fly or was it only me...?&quot;</span>
+
+                    </div>
+
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+    <div id="chatlog__message-container-990839933830840320" class="chatlog__message-container " data-message-id="990839933830840320">
+        <div class="chatlog__message">
+            <div class="chatlog__message-aside">
+                    <img class="chatlog__avatar" src="https://cdn.discordapp.com/avatars/990458333905436723/f91483b83fd80d7f5c7ae17a349cbb0e.png?size=512" alt="Avatar" loading="lazy">
+            </div>
+
+            <div class="chatlog__message-primary">
+                    <div class="chatlog__header">
+                        <span class="chatlog__author" style="" title="&#119823;&#119808;&#119826;&#119816;#0000" data-user-id="990458333905436723">&#119823;&#119808;&#119826;&#119816;</span>
+
+                            <span class="chatlog__bot-label">BOT</span>
+
+                        <span class="chatlog__timestamp">26-Jun-22 10:44 PM</span>
+                    </div>
+
+                    <div class="chatlog__content chatlog__markdown">
+                        <span class="chatlog__markdown-preserve">two halves of a moon, kas and his cake temporarily overshadowed by a new toy to steal their attention: two halves in behi&#39;s hands, gently picking one up from her grasp and twining their arms around hers. the half in her hand close to your mouth while yours is reaching her lips — you&#39;ve always existed as a half, needed something to curl yourself around to consider yourself a being. ghost to reaper. 
+
+&quot;bite on three?&quot; wisps of a smile, faded mischievousness. &quot;wouldn&#39;t be fair if kas had all the fun, don&#39;t you think?&quot; 
+
+turning back to the aforementioned man: &quot;you&#39;re welcome to work. but it has been a long travel, no? i could go for a snack.&quot;</span>
+
+                    </div>
+
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+    <div id="chatlog__message-container-990851721448284210" class="chatlog__message-container " data-message-id="990851721448284210">
+        <div class="chatlog__message">
+            <div class="chatlog__message-aside">
+                    <img class="chatlog__avatar" src="https://cdn.discordapp.com/avatars/990458333905436723/beae2a82bcb687f50a78fd0eab85ee94.png?size=512" alt="Avatar" loading="lazy">
+            </div>
+
+            <div class="chatlog__message-primary">
+                    <div class="chatlog__header">
+                        <span class="chatlog__author" style="" title="*  &#119905;ℎ&#119890; &#119886;&#119889;&#119898;&#119894;&#119899;#0000" data-user-id="990458333905436723">*  &#119905;ℎ&#119890; &#119886;&#119889;&#119898;&#119894;&#119899;</span>
+
+                            <span class="chatlog__bot-label">BOT</span>
+
+                        <span class="chatlog__timestamp">26-Jun-22 11:30 PM</span>
+                    </div>
+
+                    <div class="chatlog__content chatlog__markdown">
+                        <span class="chatlog__markdown-preserve"><span class="chatlog__markdown-pre chatlog__markdown-pre--inline">It’s familiar, the label, in a way you didn’t expect. The label is half scratched off but it’s unmistakably to you YSL</span> <span class="chatlog__markdown-spoiler chatlog__markdown-spoiler--hidden" onclick="showSpoiler(event, this)">OPIUM </span> <span class="chatlog__markdown-pre chatlog__markdown-pre--inline">perfume. </span> 
+
+<div class="chatlog__markdown-quote"><div class="chatlog__markdown-quote-border"></div><div class="chatlog__markdown-quote-content"><span class="chatlog__markdown-pre chatlog__markdown-pre--inline"> CLUE #1 FOUND </span> 
+</div></div>
+<div class="chatlog__markdown-quote"><div class="chatlog__markdown-quote-border"></div><div class="chatlog__markdown-quote-content"><span class="chatlog__markdown-pre chatlog__markdown-pre--inline"> Your teeth greets the flesh of the apple with a soft crunch, and although the exterior of the apple appears to be ripe, the inside is rotten to its core. Most peculiar however is the noticeable lack of seeds in the center. </span></div></div></span>
+
+                    </div>
+
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+    <div id="chatlog__message-container-990863188289548318" class="chatlog__message-container " data-message-id="990863188289548318">
+        <div class="chatlog__message">
+            <div class="chatlog__message-aside">
+                    <img class="chatlog__avatar" src="https://cdn.discordapp.com/avatars/990458333905436723/7b51d493676cbd6d19950e8d7ab5d680.png?size=512" alt="Avatar" loading="lazy">
+            </div>
+
+            <div class="chatlog__message-primary">
+                    <div class="chatlog__header">
+                        <span class="chatlog__author" style="" title="&#120104;&#120094;&#120112;&#120102;&#120106;&#120102;&#120111; &#120099;&#120111;&#120098;&#120102;#0000" data-user-id="990458333905436723">&#120104;&#120094;&#120112;&#120102;&#120106;&#120102;&#120111; &#120099;&#120111;&#120098;&#120102;</span>
+
+                            <span class="chatlog__bot-label">BOT</span>
+
+                        <span class="chatlog__timestamp">27-Jun-22 12:16 AM</span>
+                    </div>
+
+                    <div class="chatlog__content chatlog__markdown">
+                        <span class="chatlog__markdown-preserve">“Stop – it’s rotten, there was a fly in it, I have cookies for you, just <em>wait a moment.</em>” Kasimir groans, stepping towards them. “<em>Children.</em>” He’s making a grab for the apple when he stops in his tracks. Chemicals. Rot. Hidden dangers. Hidden inside… what?
+
+His eyes crawl over the room, scanning the stove, smelling for gas, but he moves from it quickly in the silence that ensues — as the refrigerator’s steady hum comes into focus. He isn’t thinking, it’s pure instinct as he strides across the room and wrenches the door open, blocking the opening from his companions’ sight with his body, lest it be something unthinkable.
+
+(Ever the gentleman. He can’t even imagine the things they might have seen.)</span>
+
+                    </div>
+
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+    <div id="chatlog__message-container-990863628192346112" class="chatlog__message-container " data-message-id="990863628192346112">
+        <div class="chatlog__message">
+            <div class="chatlog__message-aside">
+                    <img class="chatlog__avatar" src="https://cdn.discordapp.com/avatars/990458333905436723/beae2a82bcb687f50a78fd0eab85ee94.png?size=512" alt="Avatar" loading="lazy">
+            </div>
+
+            <div class="chatlog__message-primary">
+                    <div class="chatlog__header">
+                        <span class="chatlog__author" style="" title="*  &#119905;ℎ&#119890; &#119886;&#119889;&#119898;&#119894;&#119899;#0000" data-user-id="990458333905436723">*  &#119905;ℎ&#119890; &#119886;&#119889;&#119898;&#119894;&#119899;</span>
+
+                            <span class="chatlog__bot-label">BOT</span>
+
+                        <span class="chatlog__timestamp">27-Jun-22 12:18 AM</span>
+                    </div>
+
+                    <div class="chatlog__content chatlog__markdown">
+                        <span class="chatlog__markdown-preserve"><span class="chatlog__markdown-mention" style="color: rgb(136, 159, 192); background-color: rgba(136, 159, 192, 0.1);">@MAGPIE.</span>  <span class="chatlog__markdown-pre chatlog__markdown-pre--inline">roll !int</span></span>
+
+                    </div>
+
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+    <div id="chatlog__message-container-990863651877572678" class="chatlog__message-container " data-message-id="990863651877572678">
+        <div class="chatlog__message">
+            <div class="chatlog__message-aside">
+                    <img class="chatlog__avatar" src="https://cdn.discordapp.com/avatars/261302296103747584/b4926b52f7f1c966e01e25f0b33253f1.png?size=512" alt="Avatar" loading="lazy">
+            </div>
+
+            <div class="chatlog__message-primary">
+                    <div class="chatlog__header">
+                        <span class="chatlog__author" style="color: rgb(133, 125, 103)" title="Avrae#6944" data-user-id="261302296103747584">Avrae</span>
+
+                            <span class="chatlog__bot-label">BOT</span>
+
+                        <span class="chatlog__timestamp">27-Jun-22 12:18 AM</span>
+                    </div>
+
+                    <div class="chatlog__content chatlog__markdown">
+                        <span class="chatlog__markdown-preserve"><span class="chatlog__markdown-mention" title="jules#6504">@jules / magpie</span>  <img loading="lazy" class="chatlog__emoji " alt="🎲" title="game_die" src="https://twemoji.maxcdn.com/2/svg/1f3b2.svg">
+<strong>Result</strong>: 1d20 (17) + 3
+<strong>Total</strong>: 20</span>
+
+                    </div>
+
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+    <div id="chatlog__message-container-990864461197897798" class="chatlog__message-container " data-message-id="990864461197897798">
+        <div class="chatlog__message">
+            <div class="chatlog__message-aside">
+                    <img class="chatlog__avatar" src="https://cdn.discordapp.com/avatars/990458333905436723/beae2a82bcb687f50a78fd0eab85ee94.png?size=512" alt="Avatar" loading="lazy">
+            </div>
+
+            <div class="chatlog__message-primary">
+                    <div class="chatlog__header">
+                        <span class="chatlog__author" style="" title="*  &#119905;ℎ&#119890; &#119886;&#119889;&#119898;&#119894;&#119899;#0000" data-user-id="990458333905436723">*  &#119905;ℎ&#119890; &#119886;&#119889;&#119898;&#119894;&#119899;</span>
+
+                            <span class="chatlog__bot-label">BOT</span>
+
+                        <span class="chatlog__timestamp">27-Jun-22 12:21 AM</span>
+                    </div>
+
+                    <div class="chatlog__content chatlog__markdown">
+                        <span class="chatlog__markdown-preserve"><span class="chatlog__markdown-pre chatlog__markdown-pre--inline">You open the fridge to find nothing there. It’s clean — no sign of life, but it’s cold. Even so, you pick up on something else, something too rhythmically on beat to be anything else but purposeful.</span>
+
+<span class="chatlog__markdown-mention" style="color: rgb(148, 176, 183); background-color: rgba(148, 176, 183, 0.1);">@​LYREBIRD.</span>  <span class="chatlog__markdown-pre chatlog__markdown-pre--inline">Roll !int </span></span>
+
+                    </div>
+
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+    <div id="chatlog__message-container-990867214368387093" class="chatlog__message-container " data-message-id="990867214368387093">
+        <div class="chatlog__message">
+            <div class="chatlog__message-aside">
+                    <img class="chatlog__avatar" src="https://cdn.discordapp.com/avatars/261302296103747584/b4926b52f7f1c966e01e25f0b33253f1.png?size=512" alt="Avatar" loading="lazy">
+            </div>
+
+            <div class="chatlog__message-primary">
+                    <div class="chatlog__header">
+                        <span class="chatlog__author" style="color: rgb(133, 125, 103)" title="Avrae#6944" data-user-id="261302296103747584">Avrae</span>
+
+                            <span class="chatlog__bot-label">BOT</span>
+
+                        <span class="chatlog__timestamp">27-Jun-22 12:32 AM</span>
+                    </div>
+
+                    <div class="chatlog__content chatlog__markdown">
+                        <span class="chatlog__markdown-preserve"><span class="chatlog__markdown-mention" title="moonrise#4274">@ever ✢ lyrebird</span>  <img loading="lazy" class="chatlog__emoji " alt="🎲" title="game_die" src="https://twemoji.maxcdn.com/2/svg/1f3b2.svg">
+<strong>Result</strong>: 1d20 (17) + 2
+<strong>Total</strong>: 19</span>
+
+                    </div>
+
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+    <div id="chatlog__message-container-991003637285285968" class="chatlog__message-container " data-message-id="991003637285285968">
+        <div class="chatlog__message">
+            <div class="chatlog__message-aside">
+                    <img class="chatlog__avatar" src="https://cdn.discordapp.com/avatars/990458333905436723/beae2a82bcb687f50a78fd0eab85ee94.png?size=512" alt="Avatar" loading="lazy">
+            </div>
+
+            <div class="chatlog__message-primary">
+                    <div class="chatlog__header">
+                        <span class="chatlog__author" style="" title="*  &#119905;ℎ&#119890; &#119886;&#119889;&#119898;&#119894;&#119899;#0000" data-user-id="990458333905436723">*  &#119905;ℎ&#119890; &#119886;&#119889;&#119898;&#119894;&#119899;</span>
+
+                            <span class="chatlog__bot-label">BOT</span>
+
+                        <span class="chatlog__timestamp">27-Jun-22 09:34 AM</span>
+                    </div>
+
+                    <div class="chatlog__content chatlog__markdown">
+                        <span class="chatlog__markdown-preserve"><div class="chatlog__markdown-quote"><div class="chatlog__markdown-quote-border"></div><div class="chatlog__markdown-quote-content"><span class="chatlog__markdown-pre chatlog__markdown-pre--inline">The sound of the buzz, you can hear something deeper in it, something more familiar like a ghost that haunts your memory. Still, when you realize when it is, the rise and fall of each note, it can&#39;t be anything but a sign for your repentance. It is the beat of your betrayal.</span>
+</div></div>
+<div class="chatlog__markdown-quote"><div class="chatlog__markdown-quote-border"></div><div class="chatlog__markdown-quote-content"> <span class="chatlog__markdown-pre chatlog__markdown-pre--inline">CLUE #2 FOUND</span></div></div></span>
+
+                    </div>
+
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+    <div id="chatlog__message-container-991162245755174952" class="chatlog__message-container " data-message-id="991162245755174952">
+        <div class="chatlog__message">
+            <div class="chatlog__message-aside">
+                    <img class="chatlog__avatar" src="https://cdn.discordapp.com/avatars/990458333905436723/beae2a82bcb687f50a78fd0eab85ee94.png?size=512" alt="Avatar" loading="lazy">
+            </div>
+
+            <div class="chatlog__message-primary">
+                    <div class="chatlog__header">
+                        <span class="chatlog__author" style="" title="*  &#119905;ℎ&#119890; &#119886;&#119889;&#119898;&#119894;&#119899;#0000" data-user-id="990458333905436723">*  &#119905;ℎ&#119890; &#119886;&#119889;&#119898;&#119894;&#119899;</span>
+
+                            <span class="chatlog__bot-label">BOT</span>
+
+                        <span class="chatlog__timestamp">27-Jun-22 08:04 PM</span>
+                    </div>
+
+                    <div class="chatlog__content chatlog__markdown">
+                        <span class="chatlog__markdown-preserve"><div class="chatlog__markdown-quote"><div class="chatlog__markdown-quote-border"></div><div class="chatlog__markdown-quote-content"><span class="chatlog__markdown-mention" style="color: rgb(252, 193, 129); background-color: rgba(252, 193, 129, 0.1);">@​ROBIN.</span>  roll <span class="chatlog__markdown-pre chatlog__markdown-pre--inline">!int</span></div></div></span>
+
+                    </div>
+
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+    <div id="chatlog__message-container-991166886312165396" class="chatlog__message-container " data-message-id="991166886312165396">
+        <div class="chatlog__message">
+            <div class="chatlog__message-aside">
+                    <img class="chatlog__avatar" src="https://cdn.discordapp.com/avatars/261302296103747584/b4926b52f7f1c966e01e25f0b33253f1.png?size=512" alt="Avatar" loading="lazy">
+            </div>
+
+            <div class="chatlog__message-primary">
+                    <div class="chatlog__header">
+                        <span class="chatlog__author" style="color: rgb(133, 125, 103)" title="Avrae#6944" data-user-id="261302296103747584">Avrae</span>
+
+                            <span class="chatlog__bot-label">BOT</span>
+
+                        <span class="chatlog__timestamp">27-Jun-22 08:23 PM</span>
+                    </div>
+
+                    <div class="chatlog__content chatlog__markdown">
+                        <span class="chatlog__markdown-preserve"><span class="chatlog__markdown-mention" title="okay.#0214">@vic / robin ( your soul )</span>  <img loading="lazy" class="chatlog__emoji " alt="🎲" title="game_die" src="https://twemoji.maxcdn.com/2/svg/1f3b2.svg">
+<strong>Result</strong>: 1d20 (10) + 3
+<strong>Total</strong>: 13</span>
+
+                    </div>
+
+
+
+
+                    <div class="chatlog__reactions">
+                            <div class="chatlog__reaction" title="1flushed">
+                                <img class="chatlog__emoji chatlog__emoji--small" alt="1flushed" src="https://cdn.discordapp.com/emojis/965681573456412672.png" loading="lazy">
+                                <span class="chatlog__reaction-count">1</span>
+                            </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+    <div id="chatlog__message-container-991167816659107900" class="chatlog__message-container " data-message-id="991167816659107900">
+        <div class="chatlog__message">
+            <div class="chatlog__message-aside">
+                    <img class="chatlog__avatar" src="https://cdn.discordapp.com/avatars/990458333905436723/beae2a82bcb687f50a78fd0eab85ee94.png?size=512" alt="Avatar" loading="lazy">
+            </div>
+
+            <div class="chatlog__message-primary">
+                    <div class="chatlog__header">
+                        <span class="chatlog__author" style="" title="*  &#119905;ℎ&#119890; &#119886;&#119889;&#119898;&#119894;&#119899;#0000" data-user-id="990458333905436723">*  &#119905;ℎ&#119890; &#119886;&#119889;&#119898;&#119894;&#119899;</span>
+
+                            <span class="chatlog__bot-label">BOT</span>
+
+                        <span class="chatlog__timestamp">27-Jun-22 08:27 PM</span>
+                    </div>
+
+                    <div class="chatlog__content chatlog__markdown">
+                        <span class="chatlog__markdown-preserve"><div class="chatlog__markdown-quote"><div class="chatlog__markdown-quote-border"></div><div class="chatlog__markdown-quote-content"><span class="chatlog__markdown-pre chatlog__markdown-pre--inline">It feels perhaps like you should open the rest of the four apples. A gut feeling that tells you something might be ... different.</span></div></div></span>
+
+                    </div>
+
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+    <div id="chatlog__message-container-991169642573856838" class="chatlog__message-container " data-message-id="991169642573856838">
+        <div class="chatlog__message">
+            <div class="chatlog__message-aside">
+                    <img class="chatlog__avatar" src="https://cdn.discordapp.com/avatars/990458333905436723/2cc83d38171bc6e3929772cb0bb1d4c8.png?size=512" alt="Avatar" loading="lazy">
+            </div>
+
+            <div class="chatlog__message-primary">
+                    <div class="chatlog__header">
+                        <span class="chatlog__author" style="" title="&#119835;&#119838;&#119841;&#119842;&#119858;&#119838;#0000" data-user-id="990458333905436723">&#119835;&#119838;&#119841;&#119842;&#119858;&#119838;</span>
+
+                            <span class="chatlog__bot-label">BOT</span>
+
+                        <span class="chatlog__timestamp">27-Jun-22 08:34 PM</span>
+                    </div>
+
+                    <div class="chatlog__content chatlog__markdown">
+                        <span class="chatlog__markdown-preserve">despite her own nature, she stops mid bite. not because she thinks <em>better</em>, but simply because she is intrigued. yes, it was rotten - but of that she knows well. 
+
+what stops her, in that case, is her curiosity - something she also knows of <em>too</em> well. her eyes bounce from the one whose arms she had intertwined with - her other half, her companion - death and decay, going hand in hand. to the one who nurtures, the one who feeds. 
+
+&quot;remember how i was wondering if apples split open like that...&quot; she hops off, snatching the knife and shaking off the remains of cake in a rather haphazardly manner, in order to clean it off. &quot;it&#39;s because i always have someone cut them for me. but... let me give it a try.&quot; 
+
+a weapon wields another, only this time her target is the forbidden fruit. so she begins to slice, one by one.</span>
+
+                    </div>
+
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+    <div id="chatlog__message-container-991172260343853108" class="chatlog__message-container " data-message-id="991172260343853108">
+        <div class="chatlog__message">
+            <div class="chatlog__message-aside">
+                    <img class="chatlog__avatar" src="https://cdn.discordapp.com/avatars/990458333905436723/f91483b83fd80d7f5c7ae17a349cbb0e.png?size=512" alt="Avatar" loading="lazy">
+            </div>
+
+            <div class="chatlog__message-primary">
+                    <div class="chatlog__header">
+                        <span class="chatlog__author" style="" title="&#119823;&#119808;&#119826;&#119816;#0000" data-user-id="990458333905436723">&#119823;&#119808;&#119826;&#119816;</span>
+
+                            <span class="chatlog__bot-label">BOT</span>
+
+                        <span class="chatlog__timestamp">27-Jun-22 08:44 PM</span>
+                    </div>
+
+                    <div class="chatlog__content chatlog__markdown">
+                        <span class="chatlog__markdown-preserve">it&#39;s a melody you know all too well, distorted by the tinny sound of fans and metallic scrapes drenched in a whining wind — but you know it, you know it, know the song — your song, <em>her</em> song. you freeze, let your body still as behi leaves your side, words nothing but an underwater gargle that you can&#39;t decipher. you don&#39;t try. your eyes meet kasimir&#39;s, wide and panicked; a silent word escaping. <em>please</em>. 
+
+how would he know? of course he doesn&#39;t — ( this humming is your haunting, and yours alone ) — but you have always trusted that he knew what to do, haven&#39;t you? you can&#39;t move, you can&#39;t — 
+
+they dive for behi&#39;s free hand, praying. tether and hoping. 
+
+&quot;tell me anything. <em>anything</em>. i can&#39;t listen to — &quot;</span>
+
+                    </div>
+
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+    <div id="chatlog__message-container-991175764642897981" class="chatlog__message-container " data-message-id="991175764642897981">
+        <div class="chatlog__message">
+            <div class="chatlog__message-aside">
+                    <img class="chatlog__avatar" src="https://cdn.discordapp.com/avatars/990458333905436723/beae2a82bcb687f50a78fd0eab85ee94.png?size=512" alt="Avatar" loading="lazy">
+            </div>
+
+            <div class="chatlog__message-primary">
+                    <div class="chatlog__header">
+                        <span class="chatlog__author" style="" title="*  &#119905;ℎ&#119890; &#119886;&#119889;&#119898;&#119894;&#119899;#0000" data-user-id="990458333905436723">*  &#119905;ℎ&#119890; &#119886;&#119889;&#119898;&#119894;&#119899;</span>
+
+                            <span class="chatlog__bot-label">BOT</span>
+
+                        <span class="chatlog__timestamp">27-Jun-22 08:58 PM</span>
+                    </div>
+
+                    <div class="chatlog__content chatlog__markdown">
+                        <span class="chatlog__markdown-preserve"><div class="chatlog__markdown-quote"><div class="chatlog__markdown-quote-border"></div><div class="chatlog__markdown-quote-content"><span class="chatlog__markdown-pre chatlog__markdown-pre--inline">You slice each apple in half until there are none left to cut. This is to say, you find 5 seeds all together within the 6 apples split open.</span></div></div></span>
+
+                    </div>
+
+
+
+
+            </div>
+        </div>
+    </div>
+    <div id="chatlog__message-container-991176700253716520" class="chatlog__message-container " data-message-id="991176700253716520">
+        <div class="chatlog__message">
+            <div class="chatlog__message-aside">
+                    <div class="chatlog__short-timestamp" title="27-Jun-22 09:02 PM">21:02</div>
+            </div>
+
+            <div class="chatlog__message-primary">
+
+                    <div class="chatlog__content chatlog__markdown">
+                        <span class="chatlog__markdown-preserve"><span class="chatlog__markdown-pre chatlog__markdown-pre--inline">CLUE #3 FOUND</span></span>
+
+                    </div>
+
+
+
+
+            </div>
+        </div>
+    </div>
+    <div id="chatlog__message-container-991177529094324344" class="chatlog__message-container " data-message-id="991177529094324344">
+        <div class="chatlog__message">
+            <div class="chatlog__message-aside">
+                    <div class="chatlog__short-timestamp" title="27-Jun-22 09:05 PM">21:05</div>
+            </div>
+
+            <div class="chatlog__message-primary">
+
+                    <div class="chatlog__content chatlog__markdown">
+                        <span class="chatlog__markdown-preserve"><div class="chatlog__markdown-quote"><div class="chatlog__markdown-quote-border"></div><div class="chatlog__markdown-quote-content"><span class="chatlog__markdown-pre chatlog__markdown-pre--inline">MAGPIE, you watch in fascination as ROBIN cuts the apples cleanly in half with no signs of injury to be found. It feels almost like relief until you hear a tapping at the kitchen window.</span></div></div></span>
+
+                    </div>
+
+
+
+
+                    <div class="chatlog__reactions">
+                            <div class="chatlog__reaction" title="RemiGag_REH">
+                                <img class="chatlog__emoji chatlog__emoji--small" alt="RemiGag_REH" src="https://cdn.discordapp.com/emojis/742599151405236326.png" loading="lazy">
+                                <span class="chatlog__reaction-count">7</span>
+                            </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+    <div id="chatlog__message-container-991197323084451901" class="chatlog__message-container " data-message-id="991197323084451901">
+        <div class="chatlog__message">
+            <div class="chatlog__message-aside">
+                    <img class="chatlog__avatar" src="https://cdn.discordapp.com/avatars/990458333905436723/7b51d493676cbd6d19950e8d7ab5d680.png?size=512" alt="Avatar" loading="lazy">
+            </div>
+
+            <div class="chatlog__message-primary">
+                    <div class="chatlog__header">
+                        <span class="chatlog__author" style="" title="&#120104;&#120094;&#120112;&#120102;&#120106;&#120102;&#120111; &#120099;&#120111;&#120098;&#120102;#0000" data-user-id="990458333905436723">&#120104;&#120094;&#120112;&#120102;&#120106;&#120102;&#120111; &#120099;&#120111;&#120098;&#120102;</span>
+
+                            <span class="chatlog__bot-label">BOT</span>
+
+                        <span class="chatlog__timestamp">27-Jun-22 10:24 PM</span>
+                    </div>
+
+                    <div class="chatlog__content chatlog__markdown">
+                        <span class="chatlog__markdown-preserve">It’s all happening at once. Kasimir hears the knife piercing the apple’s skin, the crack as the flesh splits, cells crushed under a sharp blade, the sweet sugar sprayed into the air. He hears the hum-hum-hum of the refrigerator, only discernible to him as a jammed fan or a coolant issue, but he hears Pasi’s plaintive cries, their pleas for an end to what must be some kind of torture for them, and he’s only beginning to triage a response, when —
+
+<em>tap, tap, tap.</em>
+
+He tries to think of a logical explanation. A poorly fitted frame rattling, a wayward branch scratching in the wind, wild animals in the undergrowth below – a little bird, waiting to be let in.
+
+Kasimir is not afraid. He feels a sick little hope inside, that sense that’s been growing all evening – a roiling dread in poisoned water; now, the sweetest wine. More than knowing, or feeling, though, he’s wishing. For what? <em>Oh, just a little fresh air.</em> He barely spares a glance through the glass as he stands, opening the locks and cracking it open. With shaking hands, he places the cookie on the sill, and waits.</span>
+
+                    </div>
+
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+    <div id="chatlog__message-container-991198515009163274" class="chatlog__message-container " data-message-id="991198515009163274">
+        <div class="chatlog__message">
+            <div class="chatlog__message-aside">
+                    <img class="chatlog__avatar" src="https://cdn.discordapp.com/avatars/990458333905436723/beae2a82bcb687f50a78fd0eab85ee94.png?size=512" alt="Avatar" loading="lazy">
+            </div>
+
+            <div class="chatlog__message-primary">
+                    <div class="chatlog__header">
+                        <span class="chatlog__author" style="" title="*  &#119905;ℎ&#119890; &#119886;&#119889;&#119898;&#119894;&#119899;#0000" data-user-id="990458333905436723">*  &#119905;ℎ&#119890; &#119886;&#119889;&#119898;&#119894;&#119899;</span>
+
+                            <span class="chatlog__bot-label">BOT</span>
+
+                        <span class="chatlog__timestamp">27-Jun-22 10:29 PM</span>
+                    </div>
+
+                    <div class="chatlog__content chatlog__markdown">
+                        <span class="chatlog__markdown-preserve"><div class="chatlog__markdown-quote"><div class="chatlog__markdown-quote-border"></div><div class="chatlog__markdown-quote-content"> <span class="chatlog__markdown-pre chatlog__markdown-pre--inline">IT IS A CROW AND IT WEARS A GIFT AROUND ITS ANKLE.</span></div></div></span>
+
+                            <span class="chatlog__edited-timestamp" title="27-Jun-22 10:29 PM">(edited)</span>
+                    </div>
+
+
+
+
+            </div>
+        </div>
+    </div>
+    <div id="chatlog__message-container-991198530167382016" class="chatlog__message-container " data-message-id="991198530167382016">
+        <div class="chatlog__message">
+            <div class="chatlog__message-aside">
+                    <div class="chatlog__short-timestamp" title="27-Jun-22 10:29 PM">22:29</div>
+            </div>
+
+            <div class="chatlog__message-primary">
+
+
+                    <div class="chatlog__attachment " onclick="">
+
+                            <a href="https://cdn.discordapp.com/attachments/990464163157512212/991198529949274143/unknown.png">
+                                <img class="chatlog__attachment-media" src="https://cdn.discordapp.com/attachments/990464163157512212/991198529949274143/unknown.png" alt="Image attachment" title="Image: unknown.png (198.28 KB)" loading="lazy">
+                            </a>
+                    </div>
+
+
+
+                    <div class="chatlog__reactions">
+                            <div class="chatlog__reaction" title="pepe15">
+                                <img class="chatlog__emoji chatlog__emoji--small" alt="pepe15" src="https://cdn.discordapp.com/emojis/989691236254375946.png" loading="lazy">
+                                <span class="chatlog__reaction-count">5</span>
+                            </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+    <div id="chatlog__message-container-991213214060773416" class="chatlog__message-container " data-message-id="991213214060773416">
+        <div class="chatlog__message">
+            <div class="chatlog__message-aside">
+                    <img class="chatlog__avatar" src="https://cdn.discordapp.com/avatars/990458333905436723/7b51d493676cbd6d19950e8d7ab5d680.png?size=512" alt="Avatar" loading="lazy">
+            </div>
+
+            <div class="chatlog__message-primary">
+                    <div class="chatlog__header">
+                        <span class="chatlog__author" style="" title="&#120104;&#120094;&#120112;&#120102;&#120106;&#120102;&#120111; &#120099;&#120111;&#120098;&#120102;#0000" data-user-id="990458333905436723">&#120104;&#120094;&#120112;&#120102;&#120106;&#120102;&#120111; &#120099;&#120111;&#120098;&#120102;</span>
+
+                            <span class="chatlog__bot-label">BOT</span>
+
+                        <span class="chatlog__timestamp">27-Jun-22 11:27 PM</span>
+                    </div>
+
+                    <div class="chatlog__content chatlog__markdown">
+                        <span class="chatlog__markdown-preserve">With shaking fingers, Kasimir carefully unties the gift the crow has brought for them, and slides it the cookie. He turns around, taking each second in its fullest to steel himself against his better judgement, and slips it into his bag. “It’s nothing,” he mutters, to no one in particular.
+
+Instead, he takes the hollowed out cake, and places it in the fridge, firmly closing the door. He picks up the perfume bottle again, and this time, hands it back to Pasi. Maybe they’ll allow it. He doesn’t know what will happen – doesn’t know if he wants to know – but that little birdie tells him he <em>must.</em> As he drops it into their empty hand, he speaks, a mere breath from their ear, in his clear and low voice: “<em>Only if you don’t mind.</em>”</span>
+
+                    </div>
+
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+    <div id="chatlog__message-container-991213558123741215" class="chatlog__message-container " data-message-id="991213558123741215">
+        <div class="chatlog__message">
+            <div class="chatlog__message-aside">
+                    <img class="chatlog__avatar" src="https://cdn.discordapp.com/avatars/990458333905436723/beae2a82bcb687f50a78fd0eab85ee94.png?size=512" alt="Avatar" loading="lazy">
+            </div>
+
+            <div class="chatlog__message-primary">
+                    <div class="chatlog__header">
+                        <span class="chatlog__author" style="" title="*  &#119905;ℎ&#119890; &#119886;&#119889;&#119898;&#119894;&#119899;#0000" data-user-id="990458333905436723">*  &#119905;ℎ&#119890; &#119886;&#119889;&#119898;&#119894;&#119899;</span>
+
+                            <span class="chatlog__bot-label">BOT</span>
+
+                        <span class="chatlog__timestamp">27-Jun-22 11:28 PM</span>
+                    </div>
+
+                    <div class="chatlog__content chatlog__markdown">
+                        <span class="chatlog__markdown-preserve"><div class="chatlog__markdown-quote"><div class="chatlog__markdown-quote-border"></div><div class="chatlog__markdown-quote-content"><span class="chatlog__markdown-pre chatlog__markdown-pre--inline">THE BIRD TAKES THE COOKIE AND LEAVES. IT DOES NOT LOOK BACK.</span></div></div></span>
+
+                    </div>
+
+
+
+
+                    <div class="chatlog__reactions">
+                            <div class="chatlog__reaction" title="gull">
+                                <img class="chatlog__emoji chatlog__emoji--small" alt="gull" src="https://cdn.discordapp.com/emojis/989691519885778984.png" loading="lazy">
+                                <span class="chatlog__reaction-count">4</span>
+                            </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+    <div id="chatlog__message-container-991221401468026921" class="chatlog__message-container " data-message-id="991221401468026921">
+        <div class="chatlog__message">
+            <div class="chatlog__message-aside">
+                    <img class="chatlog__avatar" src="https://cdn.discordapp.com/avatars/990458333905436723/f91483b83fd80d7f5c7ae17a349cbb0e.png?size=512" alt="Avatar" loading="lazy">
+            </div>
+
+            <div class="chatlog__message-primary">
+                    <div class="chatlog__header">
+                        <span class="chatlog__author" style="" title="&#119823;&#119808;&#119826;&#119816;#0000" data-user-id="990458333905436723">&#119823;&#119808;&#119826;&#119816;</span>
+
+                            <span class="chatlog__bot-label">BOT</span>
+
+                        <span class="chatlog__timestamp">27-Jun-22 11:59 PM</span>
+                    </div>
+
+                    <div class="chatlog__content chatlog__markdown">
+                        <span class="chatlog__markdown-preserve">your fingers reluctantly untangle from behi&#39;s to hold the bottle kasimir hands to you; entwine your arms with hers and shift uncomfortably, searching kas&#39; eyes for malice, for greed. only curiosity. <em>fuck</em>. fine. 
+
+a deep breath, a small shake of curls. one hand clutches to the bottle too-tight while the other finds the marble counter, cool against their fingertips. sharp nails tap out a simple rhythm; one far from the one they&#39;re all-too familiar with. let it rewrite old horrors for new ones, they suppose. a deep breath. relax your shoulders. jaw loose. a deep breath. let your eyes roll back as you pull for a heartbeat in a different realm, the tapping of your fingers more urgent; crow to window, knife to chest, spirit to vessel —</span>
+
+                    </div>
+
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+    <div id="chatlog__message-container-991769677535649903" class="chatlog__message-container " data-message-id="991769677535649903">
+        <div class="chatlog__message">
+            <div class="chatlog__message-aside">
+                    <img class="chatlog__avatar" src="https://cdn.discordapp.com/avatars/990458333905436723/beae2a82bcb687f50a78fd0eab85ee94.png?size=512" alt="Avatar" loading="lazy">
+            </div>
+
+            <div class="chatlog__message-primary">
+                    <div class="chatlog__header">
+                        <span class="chatlog__author" style="" title="*  &#119905;ℎ&#119890; &#119886;&#119889;&#119898;&#119894;&#119899;#0000" data-user-id="990458333905436723">*  &#119905;ℎ&#119890; &#119886;&#119889;&#119898;&#119894;&#119899;</span>
+
+                            <span class="chatlog__bot-label">BOT</span>
+
+                        <span class="chatlog__timestamp">29-Jun-22 12:18 PM</span>
+                    </div>
+
+                    <div class="chatlog__content chatlog__markdown">
+                        <span class="chatlog__markdown-preserve"><div class="chatlog__markdown-quote"><div class="chatlog__markdown-quote-border"></div><div class="chatlog__markdown-quote-content"><span class="chatlog__markdown-pre chatlog__markdown-pre--inline"> — NOTHING. THERE ARE NO GHOSTS FOR YOU TO MOURN FOR.</span> 
+</div></div><span class="chatlog__markdown-mention" style="color: rgb(148, 176, 183); background-color: rgba(148, 176, 183, 0.1);">@​LYREBIRD.</span>  <span class="chatlog__markdown-pre chatlog__markdown-pre--inline">use !roll 1d10</span></span>
+
+                    </div>
+
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+    <div id="chatlog__message-container-991774490751144016" class="chatlog__message-container " data-message-id="991774490751144016">
+        <div class="chatlog__message">
+            <div class="chatlog__message-aside">
+                    <img class="chatlog__avatar" src="https://cdn.discordapp.com/avatars/261302296103747584/b4926b52f7f1c966e01e25f0b33253f1.png?size=512" alt="Avatar" loading="lazy">
+            </div>
+
+            <div class="chatlog__message-primary">
+                    <div class="chatlog__header">
+                        <span class="chatlog__author" style="color: rgb(133, 125, 103)" title="Avrae#6944" data-user-id="261302296103747584">Avrae</span>
+
+                            <span class="chatlog__bot-label">BOT</span>
+
+                        <span class="chatlog__timestamp">29-Jun-22 12:37 PM</span>
+                    </div>
+
+                    <div class="chatlog__content chatlog__markdown">
+                        <span class="chatlog__markdown-preserve"><span class="chatlog__markdown-mention" title="moonrise#4274">@ever ✢ lyrebird</span>  <img loading="lazy" class="chatlog__emoji " alt="🎲" title="game_die" src="https://twemoji.maxcdn.com/2/svg/1f3b2.svg">
+<strong>Result</strong>: 1d10 (6)
+<strong>Total</strong>: 6</span>
+
+                    </div>
+
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+    <div id="chatlog__message-container-991775315007373493" class="chatlog__message-container " data-message-id="991775315007373493">
+        <div class="chatlog__message">
+            <div class="chatlog__message-aside">
+                    <img class="chatlog__avatar" src="https://cdn.discordapp.com/avatars/990458333905436723/beae2a82bcb687f50a78fd0eab85ee94.png?size=512" alt="Avatar" loading="lazy">
+            </div>
+
+            <div class="chatlog__message-primary">
+                    <div class="chatlog__header">
+                        <span class="chatlog__author" style="" title="*  &#119905;ℎ&#119890; &#119886;&#119889;&#119898;&#119894;&#119899;#0000" data-user-id="990458333905436723">*  &#119905;ℎ&#119890; &#119886;&#119889;&#119898;&#119894;&#119899;</span>
+
+                            <span class="chatlog__bot-label">BOT</span>
+
+                        <span class="chatlog__timestamp">29-Jun-22 12:41 PM</span>
+                    </div>
+
+                    <div class="chatlog__content chatlog__markdown">
+                        <span class="chatlog__markdown-preserve"><div class="chatlog__markdown-quote"><div class="chatlog__markdown-quote-border"></div><div class="chatlog__markdown-quote-content"><span class="chatlog__markdown-pre chatlog__markdown-pre--inline">Even so, you know there is a sensation that comes with speaking to the dead that feels like eternity at your footsteps. There are no ghosts within the perfume bottle but you feel something akin to it elsewhere. Their voice is muted, soft, and they do not reach out for you in the way you are so used to.</span>
+</div></div>
+<div class="chatlog__markdown-quote"><div class="chatlog__markdown-quote-border"></div><div class="chatlog__markdown-quote-content"><span class="chatlog__markdown-pre chatlog__markdown-pre--inline">END OF KITCHEN CLUES</span></div></div></span>
+
+                    </div>
+
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</div>
+
+<div class="postamble">
+    <div class="postamble__entry">Exported 48 message(s)</div>
+</div>
+
+</body>
+
+</html>
