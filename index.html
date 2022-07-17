@@ -1,7 +1,389 @@
-<!DOCTYPE html>
-<html>
+
+<!DOCTYPE html PUBLIC>
+  
+<!------------------------------------------------------
+
+      starling @ aureacor
+    
+    - do not use without permission
+    - do not steal
+    
+-------------------------------------------------------->
+  <title>act i.</title>
+    <link rel="icon" type="image/png" href="{Favicon}">
+   <link rel="stylesheet" href="https://use.typekit.net/miu1wnw.css">
+
+
+
+<style type="text/css">
+
+
+ /* CONTAINERS */
+
+::-webkit-scrollbar {
+    display: none;
+}
+
+
+   body {background:#fff; margin: 0; width: 100%; min-height: 70em;}
+
+ /* TOP NAV */
+
+      .header {
+    position: sticky;
+    top: 0;
+    background: white;
+    width: 100%; margin: 0 auto;
+    padding: 5px 0px 5px 0px;
+    display: flex;
+    z-index: 2;
+    border-bottom: 1px solid #ccc8c3;
+
+}
+
+   .header h1 {
+font-family:"orpheuspro";
+     font-size: 15px;
+     text-transform: uppercase;
+     text-align: left;
+     letter-spacing: 2px;
+     font-weight: 400; 
+     margin: 7px 0px 0px 50px;
+     justify-content: flex-start;
+     word-break: break-all;
+     }
+     
+
+  
+  .links {background: #ffffff; word-break: break-word;  }
+  .links li:not(:last-child):after { content: "/"; margin: 0px 10px 0px 10px; }
+
+.links ul {
+    list-style:none;
+    text-transform:lowercase;
+    font-size: 10px;
+    margin-top: 12px;
+}
+
+.links a {  
+    letter-spacing: 1px;
+    font-family: 'open sans';
+     color: #373635;
+    text-decoration: none;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+}
+
+.links a:hover {
+    color:#979050;
+   -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+}
+
+.links ul li {
+    display:inline;
+}
+
+/* TOPPER */
+
+.container {  display: grid;
+  grid-template-columns: 100%;
+  grid-template-rows: 100%;
+  grid-auto-columns: 1fr;
+  gap: 0px 0px;
+  grid-auto-flow: row;
+  grid-template-areas:
+    "photo";
+}
+
+
+/* TOP RIGHT */
+
+.photo { grid-area: photo;  border-left: 1px solid #ccc8c3;   position: relative;}
+.photo h1 {
+    padding-top: 70px;
+font-family:"orpheuspro";
+    letter-spacing: 4px;
+    font-weight: 400;
+    font-size: 150px;
+    z-index: 1;
+    margin: 0;
+    position: relative;
+    left: 130px;
+    top: -70px;
+    line-height: 100%;
+
+ }
+.photo img {
+    width: 90%;
+    height: 500px;
+    object-fit: cover;
+    display: block;
+    padding: 60px 0px;
+    filter: grayscale(1);
+    margin: 0 auto;
+ }
+
+.center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+}
+
+.center p {
+    font-family: open sans; 
+    font-size: 80px;
+font-family:"orpheuspro";
+       text-transform: uppercase;
+    letter-spacing: 2px;
+    line-height: 110%;
+    text-align: center;
+    word-break: normal;
+    color: white;
+ }
+
+/* TEXT SECTIONS */
+
+ .block { margin-bottom: 50px;   }
+   .text {
+     width: 65vh;
+     background: transparent;
+     margin: auto;
+     padding-bottom: 40px;
+   margin-top: 20px;
+        }
+
+.block a {text-decoration: none; color: black; font-weight: 700;
+-webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;}
+.block a:hover {    color:#979050;
+   -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;}
+
+
+    .text p {
+      font-family: open sans;
+      line-height: 24px;
+      font-size: 12px;
+      text-align: justify;
+     }
+   .text h1 {
+font-family:"orpheuspro";
+
+    font-size: 25px;
+    font-weight: 400;
+    letter-spacing:1.3px;
+    margin: 0px auto;
+    border-bottom: 1px solid #ccc8c3;
+
+    text-transform: uppercase;
+      }
+      
+           .text h1:after{
+content:'\ec14';
+font-family:'cappuccicons';
+font-size: 10px;
+vertical-align: middle;
+padding-left: 10px;
+}
+
+  .text u { text-underline-offset: 15%; font-style: italic; }
+
+blockquote {
+ margin: 10px 0px 10px 20px;
+ border-left: 2px solid #e6e6e6;
+ padding-left: 10px;
+}
+
+.block li {
+      font-family: open sans;
+      line-height: 22px;
+      font-size: 11px;
+      text-align: justify;
+      list-style: none;
+      letter-spacing: 1px;
+     margin: 20px 0px;
+      
+}
+
+.block li a {text-transform: uppercase; text-decoration: none; }
+
+.block li i::before { 
+   content: "—";
+   padding-left: 5px;
+   padding-right: 5px;
+}
+
+
+.block ul {
+     padding: 0px;
+}
+
+.toggletext { cursor: pointer;}
+
+#locp {
+  font-family: open sans;
+  font-size: 10px;
+  line-height: 18px;
+  width: 600px;
+  margin: 20px auto 30px auto;
+  text-align: center;
+}
+
+.block h2 {
+    display: inline-block;
+}
+
+#huh {
+    text-align: center;
+    font-family: 'orpheuspro';
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 400;
+    margin-top: 70px;
+    font-size: 50px;
+    
+}
+
+</style>
+
 <body>
-<h1>Hello World</h1>
-<p>I'm hosted with GitHub Pages.</p>
+<div class="header">
+<h1> Caedes Corvi </h1>
+  <div class="links">
+        <ul>
+            <li><a href="/">home</a></li>
+            <li><a href="/ask">message</a></li>
+            <li><a href="/navigation">navigation</a></li>
+            <li><a href="/submit">apply</a></li>
+            <!--you can add more links here-->
+        </ul>
+    </div>
+</div>
+
+<div class="container">
+
+  <div class="photo">
+      <!-- <h1>NOVAE  TERRAE </h1> -->
+     <div class="inset">
+<div class="center"> <p id="yikes"> act I
+ </p> </div>
+             <!-- <img src="https://i.imgur.com/ZXFpnwd.png
+"> -->
+     </img></div></div>
+</div>
+<h1 id="huh"> act 1 </h1>
+ <p id="locp">only <b>completed</b> discord threads have been added to this masterlist, suggested order of readin gis from top to bottom. please click on the title to expand.</p> 
+
+<div class="text">
+
+
+<div class="block">
+<img src="https://i.imgur.com/ZXFpnwd.png" style="width: 100%; max-height: 100px; object-fit: cover; margin-bottom: 10px;"></img>
+<h1 class="toggletext">the reunion </h1>
+<div class="morelinks">
+<ul>
+    <li> <a href="/"> FOX & HARRIER</a>    <i> plot drop</i> <br>
+    <blockquote>Harrier meets someone unexpected. A confession is made. A question is answered. A debt is to be repaid.    </blockquote>
+    </li>
+    
+    
+        <li> <a href="/"> HUMMINGBIRD & NIGHTINGALE</a>    <i> subtitle </i> <br>    <blockquote> 
+    Hummingbird and Nightingale convene and have fleeting conversation about the strangeness of the circumstances and the bathroom smells. 
+    </blockquote>    </li>
+    
+    
+        <li> <a href="/"> robin, magpie, & lyrebird  </a>    <i> subtitle </i> <br><blockquote>
+A tea party goes south once the entertainment arrives.
+    </blockquote> </li>
+    
+    
+            <li> <a href="/">  magpie & harrier  </a>    <i>  subtitle </i> <br><blockquote>
+Words and weapons are exchanged. Harrier gets shot point blank. Repeatedly.
+
+    </blockquote> </li>
+    
+                <li> <a href="/">  hummingbird & golden pheasant  </a>    <i>  subtitle </i> <br><blockquote>
+Golden Pheasant comes to Hummingbird with demands for intelligible truths where there is only unintelligible despair.
+
+    </blockquote> </li>
+    
+                <li> <a href="/">  swan, black heron, nightingale, & blue jay  </a>    <i>  subtitle </i> <br><blockquote>
+the gang investigates the living room.
+    </blockquote> </li>
+    
+                <li> <a href="/">  lyrebird & hummingbird  </a>    <i>  subtitle </i> <br><blockquote>
+lawrence is the first person to make pasi smile in two years. 
+    </blockquote> </li>
+    
+                <li> <a href="/">  hummingbird, snow owl, harrier, & starling  </a>    <i>  subtitle </i> <br><blockquote>
+Bedroom shenanigans completed. Judesbussy 
+    </blockquote> </li>
+    
+                <li> <a href="/">  hummingbird & bluejay  </a>    <i>  subtitle </i> <br><blockquote>
+now, what happened here. attempts at reconciliation end in ... whatever that was, it wasn't heterosexual.
+
+    </blockquote> </li>
+    
+                <li> <a href="/">   nightingale  &  golden  pheasant  </a>    <i>  subtitle </i> <br><blockquote>
+two friends brave the bathroom in search of secrets, finding a disgusting clue and fleeing the scene shortly thereafter.
+    </blockquote> </li>
+    
+                <li> <a href="/">  sparrow, albatross, peregrine falcon & falconet  </a>    <i>  subtitle </i> <br><blockquote>
+ink, feathers, dirt, and more questions than answers
+
+    </blockquote> </li>
+    
+                <li> <a href="/">  caladrius, golden pheasant, & rook.  </a>    <i>  subtitle </i> <br><blockquote>
+they’re crazy! they’re rich! they’re asian! fei shoots a bathroom mirror, goes alice-in-wonderland, and finds a possible dead person’s blood. javi rolls two nat ones, gets crucified by glass, and makes a candle out of lip balm. it’s a comedy of errors until it’s a horror. despite his attention power, nobody notices peacock being in the room.
+    </blockquote> </li>
+    
+                <li> <a href="/">  NAME  </a>    <i>  subtitle </i> <br><blockquote>
+
+    </blockquote> </li>
+    
+    
+</ul>
+</div>
+</div>
+
+<div class="block">
+<img src="https://i.imgur.com/ZXFpnwd.png" style="width: 100%; max-height: 100px; object-fit: cover; margin-bottom: 10px;"></img>
+<h1 class="toggletext">the reunion </h1>
+<div class="morelinks">
+<ul>
+
+    <li> <a href="/">  NAME  </a>    <i>  subtitle </i> <br><blockquote>
+
+    </blockquote> </li>
+    
+    
+</ul>
+</div>
+</div>
+
+
+</div>
+ 
+
+<script src="//pull.cappuccicons.com/cpf.js"></script>
+<script type="text/javascript" src="https://static.tumblr.com/3ikgvxs/0TGl4zgpu/jquery.min.js"></script> 
+
+<script type="text/javascript">
+    jQuery(document).ready(function() {
+    jQuery(".morelinks").hide();
+    jQuery(".toggletext").click(function()
+    {
+    jQuery(this).next(".morelinks").slideToggle(700);
+    });});
+
+</script>
+
 </body>
 </html>
